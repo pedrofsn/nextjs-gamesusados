@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import styles from '../../styles/Games.module.css'
 
 export default function games() {
     const [games, setGames] = useState(null)
@@ -13,7 +14,10 @@ export default function games() {
         if(games){
             const lines = []
             games.content.forEach(game => {
-                const line = <li key={game.id}>{game.title}</li>
+                const line = <div key={game.id} className={styles.game}>
+                    <img src={game.image} alt={game.title} className={styles.image}/>
+                    {game.title}
+                    </div>
                 lines.push(line)
             });
 
@@ -23,5 +27,5 @@ export default function games() {
     
     useEffect(() => { call() }, [])
 
-    return <ul>{generateList()}</ul>
+    return <div className={styles.page}>{generateList()}</div>
 }
