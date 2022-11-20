@@ -27,5 +27,8 @@ export default function games() {
     
     useEffect(() => { call() }, [])
 
-    return <div className={styles.page}>{generateList()}</div>
+    return <>
+        <h1 className={styles.title}>Games usados</h1>
+        <div className={styles.page}>{generateList()}</div>
+    </>
 }
