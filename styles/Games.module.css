@@ -1,27 +1,7 @@
-.title {
-  font-size: xx-large;
-  font-weight: 500;
-  margin: 60px;
-}
-
 .page {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: wrap;
-  flex-direction: row;
   height: 90vh;
-  margin: 60px;
-}
-
-.image {
-  width: 100px;
-  margin: 10px;
-  border-radius: 8px;
-}
-
-.game {
-  width: 300px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  margin: 6%;
 }
