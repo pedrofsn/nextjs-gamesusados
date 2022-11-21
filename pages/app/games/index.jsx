@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import GameItem from '../../..//components/GameItem.jsx'
+import GameItem from '../../../components/GameItem.jsx'
 import styles from '../../../styles/Games.module.css'
 
 export default function games() {
