@@ -6,10 +6,12 @@ export default function games() {
     const [password, setPassword] = useState('')
 
     return <Container xs>
-        <Input clearable label="login" placeholder="login" fullWidth={true} value={login} />
-        <Spacer y={1.5} />
-        <Input.Password clearable label="password" placeholder="password" fullWidth={true} value={password} />
-        <Spacer y={1.5} />
-        <Button>Click me</Button>
-    </Container>
+            <h1 className="text-3xl font-bold underline">Hello world!</h1>
+            <Spacer y={1.5} />
+            <Input clearable label="login" placeholder="login" fullWidth={true} value={login} />
+            <Spacer y={1.5} />
+            <Input.Password clearable label="password" placeholder="password" fullWidth={true} value={password} />
+            <Spacer y={1.5} />
+            <Button>Click me</Button>
+        </Container>
 }
