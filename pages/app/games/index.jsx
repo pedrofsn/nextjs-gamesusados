@@ -2,12 +2,18 @@ import { useEffect, useState } from "react"
 import GameItem from '../../../components/GameItem.jsx'
 import Searchbox from "../../../components/Searchbox.jsx"
 import styles from '../../../styles/Games.module.css'
+import { useRouter } from 'next/router'
 
 export default function games() {
     const [games, setGames] = useState(null)
+    const router = useRouter()
 
     async function call(text = "") {
-        const url = text == "" ? "http://localhost:8080/games" : "http://localhost:8080/games?title=" + text
+        const origin = typeof window !== 'undefined' && window.location.origin
+            ? window.location.origin.replace(window.location.port, '8080')
+            : '';
+
+        const url = text == "" ? `${origin}/games` : `${origin}/games?title=` + text
         const response = await fetch(url)
         const json = await response.json()
         setGames(json)
