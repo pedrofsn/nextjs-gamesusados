@@ -1,14 +1,9 @@
 import React, { useState } from "react"
 import { Container, Input, Spacer, Button, useInput } from "@nextui-org/react";
-import { useTheme as useNextTheme } from 'next-themes'
-import { Switch, useTheme } from '@nextui-org/react'
 
 export default function games() {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
-
-  const { setTheme } = useNextTheme();
-  const { isDark, type } = useTheme();
 
   function updateData(updateFunction, e) {
     updateFunction(e.target.value)
@@ -27,6 +22,12 @@ export default function games() {
         color: "",
       };
     const isValid = validateEmail(value);
+    if (isValid) {
+      setLogin(value)
+    } else {
+      setLogin('')
+    }
+
     return {
       text: isValid ? "E-mail digitado corretamente" : "Digite um e-mail válido",
       color: isValid ? "success" : "error",
@@ -44,17 +45,38 @@ export default function games() {
       return
     }
 
+    async function call() {
+      const origin = typeof window !== 'undefined' && window.location.origin
+        ? window.location.origin.replace(window.location.port, '8080')
+        : '';
+
+      const body = {
+        email: login,
+        password: password
+      }
+
+      const url = `${origin}/auth`
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          "Content-type": "application/json;charset=UTF-8",
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify(body)
+      })
+      const json = await response.json()
+
+      if (json.message != null) {
+        alert(json.message)
+      }
+    }
+
+    call()
   }
 
   return <Container xs>
-    <h1 className="text-3xl font-bold underline">Hello world {password}!</h1>
-    <div>
-      The current theme is: {type}
-      <Switch
-        checked={isDark}
-        onChange={(e) => setTheme(e.target.checked ? 'dark' : 'light')}
-      />
-    </div>
+    <h1 className="text-3xl font-bold underline">Login no sistema</h1>
+
     <Input
       {...bindings}
       clearable
@@ -64,16 +86,21 @@ export default function games() {
       color={helper.color}
       helperColor={helper.color}
       helperText={helper.text}
+      fullWidth={true}
       type="email"
       label="Email"
       placeholder="Digite o seu e-mail"
     />
     <Spacer y={1.5} />
-    <Input clearable
-      onClearClick={reset} label="login" placeholder="login" fullWidth={true} value={login} onChange={(value) => updateData(setLogin, value)} />
+    <Input.Password
+      clearable
+      label="password"
+      placeholder="password"
+      fullWidth={true}
+      value={password}
+      onChange={(value) => updateData(setPassword, value)}
+    />
     <Spacer y={1.5} />
-    <Input.Password clearable label="password" placeholder="password" fullWidth={true} value={password} onChange={(value) => updateData(setPassword, value)} />
-    <Spacer y={1.5} />
-    <Button onClick={tryLogin}>Login</Button>
+    <Button onClick={tryLogin}>Entrar</Button>
   </Container>
 }
