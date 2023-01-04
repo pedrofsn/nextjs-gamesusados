@@ -1,9 +1,12 @@
 import React, { useState } from "react"
-import { Container, Input, Spacer, Button, useInput } from "@nextui-org/react";
+import { Progress, Badge, Container, Input, Spacer, Button, useInput } from "@nextui-org/react";
 
 export default function games() {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
+  const [isErrorInvisible, setErrorAsInvisible] = React.useState(true);
+  const [error, setError] = useState('')
+  const [isLoading, setLoading] = React.useState(false);
 
   function updateData(updateFunction, e) {
     updateFunction(e.target.value)
@@ -36,16 +39,21 @@ export default function games() {
 
   function tryLogin() {
     if (login == '') {
-
+      setError("Preencha o campo e-mail")
+      setErrorAsInvisible(false)
+      setLoading(false)
       return
     }
 
     if (password == '') {
-
+      setError("Preencha o campo senha")
+      setErrorAsInvisible(false)
+      setLoading(false)
       return
     }
 
     async function call() {
+      setLoading(true)
       const origin = typeof window !== 'undefined' && window.location.origin
         ? window.location.origin.replace(window.location.port, '8080')
         : '';
@@ -59,15 +67,21 @@ export default function games() {
       const response = await fetch(url, {
         method: 'POST',
         headers: {
-          "Content-type": "application/json;charset=UTF-8",
-          'Access-Control-Allow-Origin': '*'
+          "Content-Type": "application/json",
+          'Accept-Encoding': 'application/gzip',
         },
         body: JSON.stringify(body)
       })
       const json = await response.json()
 
       if (json.message != null) {
-        alert(json.message)
+        setError(json.message)
+        setErrorAsInvisible(false)
+        setLoading(false)
+      } else {
+        setError('')
+        setErrorAsInvisible(true)
+        setLoading(false)
       }
     }
 
@@ -101,6 +115,15 @@ export default function games() {
       onChange={(value) => updateData(setPassword, value)}
     />
     <Spacer y={1.5} />
-    <Button onClick={tryLogin}>Entrar</Button>
+    {(!isLoading && !isErrorInvisible) ? <Badge color="error" isInvisible={isErrorInvisible}>{error}</Badge> : ""}
+
+    {(isLoading) ? <Progress
+      indeterminated
+      value={50}
+      color="primary"
+      status="primary"
+    /> : ""}
+
+    {(!isLoading) ? <Button onPress={tryLogin}>Entrar</Button> : ""}
   </Container>
 }
