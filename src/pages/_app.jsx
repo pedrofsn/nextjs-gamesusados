@@ -1,6 +1,7 @@
 import '../styles/globals.css'
 import { createTheme, NextUIProvider } from "@nextui-org/react"
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
+import { AppProvider } from '../data/context/AppContext';
 
 function MyApp({ Component, pageProps }) {
 
@@ -26,7 +27,9 @@ function MyApp({ Component, pageProps }) {
       }}
     >
       <NextUIProvider>
-        <Component {...pageProps} />
+        <AppProvider>
+          <Component {...pageProps} />
+        </AppProvider>
       </NextUIProvider>
     </NextThemesProvider>
   );

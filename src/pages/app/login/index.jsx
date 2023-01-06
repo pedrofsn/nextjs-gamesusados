@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Progress, Badge, Container, Input, Spacer, Button, useInput } from "@nextui-org/react";
+import useAppData from "../../../data/hook/useAppData";
 
 export default function games() {
   const [login, setLogin] = useState('')
@@ -7,6 +8,7 @@ export default function games() {
   const [isErrorInvisible, setErrorAsInvisible] = React.useState(true);
   const [error, setError] = useState('')
   const [isLoading, setLoading] = React.useState(false);
+  const context = useAppData()
 
   function updateData(updateFunction, e) {
     updateFunction(e.target.value)
@@ -82,6 +84,12 @@ export default function games() {
         setError('')
         setErrorAsInvisible(true)
         setLoading(false)
+
+        /**
+         * token: xpto
+         * usertype: MANAGER
+         * type: bearer
+         * **/
       }
     }
 
@@ -90,7 +98,7 @@ export default function games() {
 
   return <Container xs>
     <h1 className="text-3xl font-bold underline">Login no sistema</h1>
-
+    <h3>{context.usertype}</h3>
     <Input
       {...bindings}
       clearable
