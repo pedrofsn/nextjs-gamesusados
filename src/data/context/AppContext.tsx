@@ -1,32 +1,41 @@
-import { createContext } from "react"
+import { useState, createContext } from "react"
 
 type UserType = 'USER' | 'MANAGER' | 'ADMIN'
 
-interface Session {
+interface UserSession {
     usertype: UserType
     token: string
-    type: string
-    setSession?: () => void
 }
 
-const AppContext = createContext<Session>({
+const emptySession: UserSession = {
     usertype: 'USER',
-    token: '',
-    type: ''
-})
+    token: ''
+}
+
+interface SystemSession {
+    userSession: UserSession
+}
+
+const emptySystemSession: SystemSession = {
+    userSession: emptySession
+}
+
+const AppContext = createContext<SystemSession>(emptySystemSession)
 
 export function AppProvider(props) {
+    const [systemSession, setSystemSession] = useState<SystemSession>(emptySystemSession)
 
-    function setSession() {
-        console.log("está alterando a sessão")
+    function updateUserSession(userSession: UserSession) {
+        const newSystemSession: SystemSession = {
+            userSession: userSession
+        }
+        setSystemSession(newSystemSession)
     }
 
     return (
         <AppContext.Provider value={{
-            usertype: 'USER',
-            token: '',
-            type: '',
-            setSession
+            systemSession,
+            updateUserSession
         }}>
             {props.children}
         </AppContext.Provider>
