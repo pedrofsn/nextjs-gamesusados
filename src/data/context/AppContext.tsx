@@ -6,6 +6,7 @@ interface Session {
     usertype: UserType
     token: string
     type: string
+    setSession?: () => void
 }
 
 const AppContext = createContext<Session>({
@@ -15,11 +16,17 @@ const AppContext = createContext<Session>({
 })
 
 export function AppProvider(props) {
+
+    function setSession() {
+        console.log("está alterando a sessão")
+    }
+
     return (
         <AppContext.Provider value={{
             usertype: 'USER',
             token: '',
-            type: ''
+            type: '',
+            setSession
         }}>
             {props.children}
         </AppContext.Provider>

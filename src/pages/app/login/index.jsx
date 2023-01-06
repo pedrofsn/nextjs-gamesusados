@@ -8,7 +8,7 @@ export default function games() {
   const [isErrorInvisible, setErrorAsInvisible] = React.useState(true);
   const [error, setError] = useState('')
   const [isLoading, setLoading] = React.useState(false);
-  const context = useAppData()
+  const { usertype, setSession } = useAppData()
 
   function updateData(updateFunction, e) {
     updateFunction(e.target.value)
@@ -84,12 +84,6 @@ export default function games() {
         setError('')
         setErrorAsInvisible(true)
         setLoading(false)
-
-        /**
-         * token: xpto
-         * usertype: MANAGER
-         * type: bearer
-         * **/
       }
     }
 
@@ -98,7 +92,7 @@ export default function games() {
 
   return <Container xs>
     <h1 className="text-3xl font-bold underline">Login no sistema</h1>
-    <h3>{context.usertype}</h3>
+    <h3>{usertype}</h3>
     <Input
       {...bindings}
       clearable
@@ -132,6 +126,6 @@ export default function games() {
       status="primary"
     /> : ""}
 
-    {(!isLoading) ? <Button onPress={tryLogin}>Entrar</Button> : ""}
+    {(!isLoading) ? <Button onPress={setSession}>Entrar</Button> : ""}
   </Container>
 }
