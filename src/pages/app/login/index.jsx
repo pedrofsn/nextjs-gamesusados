@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Progress, Badge, Container, Input, Spacer, Button, useInput } from "@nextui-org/react"
+import { Card, Text, Row, Progress, Badge, Container, Input, Spacer, Button, useInput } from "@nextui-org/react"
 import useAppData from "../../../data/hook/useAppData"
 
 export default function games() {
@@ -96,41 +96,52 @@ export default function games() {
   }
 
   return <Container xs>
-    <h1 className="text-3xl font-bold underline">Login no sistema</h1>
-    <h3>{systemSession.userSession.token}</h3>
-    <Input
-      {...bindings}
-      clearable
-      shadow={false}
-      onClearClick={reset}
-      status={helper.color}
-      color={helper.color}
-      helperColor={helper.color}
-      helperText={helper.text}
-      fullWidth={true}
-      type="email"
-      label="Email"
-      placeholder="Digite o seu e-mail"
-    />
-    <Spacer y={1.5} />
-    <Input.Password
-      clearable
-      label="password"
-      placeholder="password"
-      fullWidth={true}
-      value={password}
-      onChange={(value) => updateData(setPassword, value)}
-    />
-    <Spacer y={1.5} />
-    {(!isLoading && !isErrorInvisible) ? <Badge color="error" isInvisible={isErrorInvisible}>{error}</Badge> : ""}
+    <Card>
+      <Card.Header>
+        <Text b size={30}>Login no sistema</Text>
+      </Card.Header>
+      <Card.Body>
+        <Row justify="center" align="center" alignItems="center">
+          <Input
+            {...bindings}
+            clearable
+            shadow={false}
+            onClearClick={reset}
+            status={helper.color}
+            color={helper.color}
+            helperColor={helper.color}
+            helperText={helper.text}
+            fullWidth={true}
+            type="email"
+            label="Email"
+            placeholder="Digite o seu e-mail"
+          />
+          <Spacer y={1.5} />
+          <Input.Password
+            clearable
+            label="password"
+            placeholder="password"
+            fullWidth={true}
+            value={password}
+            onChange={(value) => updateData(setPassword, value)}
+          />
 
-    {(isLoading) ? <Progress
-      indeterminated
-      value={50}
-      color="primary"
-      status="primary"
-    /> : ""}
-
-    {(!isLoading) ? <Button onPress={tryLogin}>Entrar</Button> : ""}
+        </Row>
+        {(!isLoading && !isErrorInvisible) ? <Spacer y={2.0} /> : ""}
+        <Row justify="center">
+          {(!isLoading && !isErrorInvisible) ? <Badge color="error" isInvisible={isErrorInvisible}>{error}</Badge> : ""}
+          {(isLoading) ? <Progress
+            indeterminated
+            value={50}
+            color="primary"
+            status="primary"
+          /> : ""}
+        </Row>
+        <Spacer y={1.5} />
+        <Row justify="center">
+          {(!isLoading) ? <Button onPress={tryLogin}>Entrar</Button> : ""}
+        </Row>
+      </Card.Body>
+    </Card>
   </Container>
 }
