@@ -40,7 +40,7 @@ export function AppProvider(props) {
     }
 
     function saveSession(systemSession: SystemSession) {
-        Cookies.set(cookieName, JSON.stringify(systemSession), { expires: 1 })
+        Cookies.set(cookieName, JSON.stringify(systemSession), { expires: 1, sameSite: 'strict' })
     }
 
     function loadSession() {
