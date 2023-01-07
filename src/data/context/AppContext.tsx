@@ -1,6 +1,8 @@
-import { useState, createContext } from "react"
+import { useState, createContext, useEffect } from "react"
+import Cookies from 'js-cookie'
 
 type UserType = 'USER' | 'MANAGER' | 'ADMIN'
+const cookieName = 'gamesusados-session'
 
 interface UserSession {
     usertype: UserType
@@ -29,13 +31,42 @@ export function AppProvider(props) {
         const newSystemSession: SystemSession = {
             userSession: userSession
         }
-        setSystemSession(newSystemSession)
+        updateSystemSession(newSystemSession)
     }
+
+    function updateSystemSession(newSystemSession: SystemSession) {
+        setSystemSession(newSystemSession)
+        saveSession(newSystemSession)
+    }
+
+    function saveSession(systemSession: SystemSession) {
+        Cookies.set(cookieName, JSON.stringify(systemSession), { expires: 1 })
+    }
+
+    function loadSession() {
+        const json = Cookies.get(cookieName)
+        if (json != null && json != '') {
+            const hasChanged = JSON.stringify(systemSession) != json
+            const newSystemSession: SystemSession = JSON.parse(json)
+            if (hasChanged) {
+                updateSystemSession(newSystemSession)
+            }
+        }
+    }
+
+    function logout() {
+        Cookies.remove(cookieName)
+        setSystemSession(emptySystemSession)
+    }
+
+    useEffect(() => { loadSession() });
 
     return (
         <AppContext.Provider value={{
             systemSession,
-            updateUserSession
+            updateUserSession,
+            loadSession,
+            logout
         }}>
             {props.children}
         </AppContext.Provider>

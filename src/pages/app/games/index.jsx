@@ -21,9 +21,9 @@ export default function games() {
     }
 
     function generateList() {
-        return games?.content?.map((game) => { return <GameItem key={game.id} game={game}/> })
+        return games?.content?.map((game) => { return <GameItem key={game.id} game={game} /> })
     }
-    
+
     useEffect(() => { call() }, [])
 
     function onSearchTyped(text) {
@@ -31,7 +31,7 @@ export default function games() {
     }
 
     return <>
-        <Searchbox onSearchTyped={onSearchTyped}/>
+        <Searchbox onSearchTyped={onSearchTyped} />
         <Grid.Container gap={2} justify="flex-start">
             {generateList()}
         </Grid.Container>
