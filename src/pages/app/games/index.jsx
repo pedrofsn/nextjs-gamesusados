@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import GameItem from '../../../components/GameItem.jsx'
+import ModalGameItem from '../games/ModalGameItem'
 import Searchbox from "../../../components/Searchbox.jsx"
-import styles from '../../../styles/Games.module.css'
 import { useRouter } from 'next/router'
 import { Grid } from "@nextui-org/react";
 
@@ -35,5 +35,6 @@ export default function games() {
         <Grid.Container gap={2} justify="flex-start">
             {generateList()}
         </Grid.Container>
+        <ModalGameItem></ModalGameItem>
     </>
 }

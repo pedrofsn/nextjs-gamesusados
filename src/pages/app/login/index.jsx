@@ -91,7 +91,7 @@ export default function games() {
           usertype: json.usertype,
           token: json.token
         })
-        router.push('/app/games')
+        router.push('/app/games', { shallow: true })
       }
     }
 
