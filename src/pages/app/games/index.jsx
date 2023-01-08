@@ -24,11 +24,13 @@ export default function games() {
         return games?.content?.map((game) => { return <GameItem key={game.id} game={game} /> })
     }
 
-    useEffect(() => { call() }, [])
-
     function onSearchTyped(text) {
         call(text)
     }
+
+    useEffect(() => {
+        call()
+    }, [])
 
     return <>
         <Searchbox onSearchTyped={onSearchTyped} />
