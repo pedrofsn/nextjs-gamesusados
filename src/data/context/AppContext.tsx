@@ -43,15 +43,17 @@ export function AppProvider(props) {
         Cookies.set(cookieName, JSON.stringify(systemSession), { expires: 1, sameSite: 'strict' })
     }
 
-    function loadSession() {
+    function loadSession(): boolean {
         const json = Cookies.get(cookieName)
         if (json != null && json != '') {
             const hasChanged = JSON.stringify(systemSession) != json
             const newSystemSession: SystemSession = JSON.parse(json)
             if (hasChanged) {
                 updateSystemSession(newSystemSession)
+                return true
             }
         }
+        return false
     }
 
     function logout() {

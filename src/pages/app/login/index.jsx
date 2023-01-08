@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Card, Text, Row, Progress, Badge, Container, Input, Spacer, Button, useInput } from "@nextui-org/react"
 import useAppData from "../../../data/hook/useAppData"
 import { useRouter } from 'next/router'
@@ -9,7 +9,7 @@ export default function games() {
   const [isErrorInvisible, setErrorAsInvisible] = React.useState(true);
   const [error, setError] = useState('')
   const [isLoading, setLoading] = React.useState(false);
-  const { updateUserSession, logout } = useAppData()
+  const { loadSession, updateUserSession, logout } = useAppData()
   const router = useRouter()
 
   function updateData(updateFunction, e) {
@@ -91,12 +91,19 @@ export default function games() {
           usertype: json.usertype,
           token: json.token
         })
-        router.push('/app/games', { shallow: true })
+        router.push('/app/games')
       }
     }
 
     call()
   }
+
+  useEffect(() => {
+    // TODO [melhoria] verificar na API se este token está válido
+    if (loadSession()) {
+      router.push('/app/games')
+    }
+  })
 
   return <Container xs>
     <Card>
