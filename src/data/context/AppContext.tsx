@@ -1,21 +1,13 @@
 import { useState, createContext, useEffect } from "react"
 import Cookies from 'js-cookie'
+import UserSession from './UserSession'
+import SystemSession from './SystemSession'
 
-type UserType = 'USER' | 'MANAGER' | 'ADMIN'
 const cookieName = 'gamesusados-session'
-
-interface UserSession {
-    usertype: UserType
-    token: string
-}
 
 const emptySession: UserSession = {
     usertype: 'USER',
     token: ''
-}
-
-interface SystemSession {
-    userSession: UserSession
 }
 
 const emptySystemSession: SystemSession = {
@@ -40,7 +32,9 @@ export function AppProvider(props) {
     }
 
     function saveSession(systemSession: SystemSession) {
-        Cookies.set(cookieName, JSON.stringify(systemSession), { expires: 1, sameSite: 'strict' })
+        var in30Minutes = 1 / 48;
+        const data = JSON.stringify(systemSession)
+        Cookies.set(cookieName, data, { expires: in30Minutes, sameSite: 'Lax' })
     }
 
     function loadSession(): boolean {
