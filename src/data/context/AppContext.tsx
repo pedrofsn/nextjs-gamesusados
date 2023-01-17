@@ -2,8 +2,8 @@ import { useState, createContext, useEffect } from "react"
 import Cookies from 'js-cookie'
 import UserSession from './UserSession'
 import SystemSession from './SystemSession'
-
-const cookieName = 'gamesusados-session'
+import { setCookie, parseCookies } from 'nookies'
+import { api } from '../../services/api'
 
 const emptySession: UserSession = {
     usertype: 'USER',
@@ -32,26 +32,29 @@ export function AppProvider(props) {
     }
 
     function saveSession(systemSession: SystemSession) {
-        var in30Minutes = 1 / 48;
-        const data = JSON.stringify(systemSession)
-        Cookies.set(cookieName, data, { expires: in30Minutes, sameSite: 'Lax' })
+        const token = systemSession.userSession.token
+        console.log('salvou o cookie ' + token)
+        setCookie(undefined, 'gamesusados.token', token, {
+            maxAge: 60 * 60 * 1, // 1 hour
+        })
+        api.defaults.headers['Authorization'] = `Bearer ${token}`;
     }
 
     function loadSession(): boolean {
-        const json = Cookies.get(cookieName)
-        if (json != null && json != '') {
-            const hasChanged = JSON.stringify(systemSession) != json
-            const newSystemSession: SystemSession = JSON.parse(json)
-            if (hasChanged) {
-                updateSystemSession(newSystemSession)
-                return true
-            }
-        }
+        // const json = Cookies.get(cookieName)
+        // if (json != null && json != '') {
+        //     const hasChanged = JSON.stringify(systemSession) != json
+        //     const newSystemSession: SystemSession = JSON.parse(json)
+        //     if (hasChanged) {
+        //         updateSystemSession(newSystemSession)
+        //         return true
+        //     }
+        // }
         return false
     }
 
     function logout() {
-        Cookies.remove(cookieName)
+        Cookies.remove('gamesusados.token')
         setSystemSession(emptySystemSession)
     }
 

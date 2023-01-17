@@ -10,16 +10,19 @@
   },
   "dependencies": {
     "@nextui-org/react": "^1.0.0-beta.10",
+    "axios": "^1.2.2",
     "eslint": "8.28.0",
     "eslint-config-next": "13.0.4",
     "js-cookie": "^3.0.1",
     "next": "13.0.4",
+    "nookies": "^2.5.2",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@types/next": "^9.0.0",
     "@types/node": "18.11.17",
+    "@types/nookies": "^2.0.3",
     "@types/react": "18.0.26",
     "next-themes": "^0.2.1"
   }

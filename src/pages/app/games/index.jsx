@@ -3,20 +3,17 @@ import GameItem from '../../../components/GameItem.jsx'
 import Searchbox from "../../../components/Searchbox"
 import { useRouter } from 'next/router'
 import { Grid } from "@nextui-org/react";
+import { api } from '../../../services/api'
 
 export default function games() {
     const [games, setGames] = useState(null)
     const router = useRouter()
 
     async function call(text = "") {
-        const origin = typeof window !== 'undefined' && window.location.origin
-            ? window.location.origin.replace(window.location.port, '8080')
-            : '';
-
-        const url = text == "" ? `${origin}/games` : `${origin}/games?title=` + text
-        const response = await fetch(url)
-        const json = await response.json()
-        setGames(json)
+        const json = await api.get('/games', {
+            'title': text
+        })
+        setGames(json.data)
     }
 
     function generateList() {
