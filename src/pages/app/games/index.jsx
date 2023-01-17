@@ -10,8 +10,12 @@ export default function games() {
     const router = useRouter()
 
     async function call(text = "") {
-        const json = await api.get('/games', {
-            'title': text
+        const json = await api({
+            method: 'get',
+            url: '/games',
+            params: {
+                'title': text
+            }
         })
         setGames(json.data)
     }
