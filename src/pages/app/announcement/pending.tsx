@@ -14,10 +14,12 @@ export default function gamesPending(ctx) {
 
     function generateList() {
         return games?.map((element) => {
-            const game = element.game
-            const owner = element.owner
-            console.log('jogo do ' + JSON.stringify(owner))
-            return <GameItem key={game.id} game={game} />
+            const { game, owner } = element
+            return <GameItem
+                key={game.id}
+                game={game}
+                owner={owner}
+            />
         })
     }
 
