@@ -1,24 +1,28 @@
 import { useEffect, useState } from "react"
-import GameItem from '../../../components/GameItem.jsx'
-import Searchbox from "../../../components/Searchbox"
 import { Grid } from "@nextui-org/react";
 import { api } from '../../../services/api'
+import Announcement from "../../../components/Announcement";
+import Searchbox from "../../../components/Searchbox";
 
 export default function gamesPending(ctx) {
-    const [games, setGames] = useState(null)
+    const [content, setContent] = useState(null)
 
     async function call() {
         const json = await api.get('/announcements/pending')
-        setGames(json.data)
+        setContent(json.data)
     }
 
     function generateList() {
-        return games?.map((element) => {
-            const { game, owner } = element
-            return <GameItem
-                key={game.id}
-                game={game}
-                owner={owner}
+        return content?.map((element) => {
+            return <Announcement
+                key={element.id}
+                game={element.game}
+                owner={element.owner}
+                announcement={{
+                    id: element.id,
+                    price: element.price,
+                    enabled: element.enabled,
+                }}
             />
         })
     }
