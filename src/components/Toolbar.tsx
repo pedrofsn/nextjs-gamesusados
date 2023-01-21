@@ -4,8 +4,23 @@ import SystemSession from '../data/context/SystemSession'
 
 export default function Toolbar(props) {
     const { systemSession } = useAppData()
-
     const userType: SystemSession = systemSession.userSession.usertype
+    const { onSearchTyped } = props
+    const hasSearch = onSearchTyped != null
+
+    function shouldAddSearchBar() {
+        if (hasSearch) {
+            return <Navbar.Content>
+                <Input
+                    clearable
+                    placeholder="Buscar jogo"
+                    onChange={(e) => onSearchTyped(e.target.value)}
+                />
+            </Navbar.Content>
+        }
+
+        return <></>
+    }
 
     return <Navbar isBordered>
         <Navbar.Brand>
@@ -15,13 +30,7 @@ export default function Toolbar(props) {
             <Navbar.Link href="/app/games">Games</Navbar.Link>
             <Navbar.Link href="/app/announcement/pending">Anúncios pendentes</Navbar.Link>
             <Navbar.Link href="/app/platforms">Plataformas</Navbar.Link>
-            <Navbar.Content>
-                <Input
-                    clearable
-                    placeholder="Buscar jogo"
-                    onChange={(e) => props.onSearchTyped(e.target.value)}
-                />
-            </Navbar.Content>
+            {shouldAddSearchBar()}
         </Navbar.Content>
     </Navbar>
 }
