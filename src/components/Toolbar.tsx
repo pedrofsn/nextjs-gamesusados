@@ -30,6 +30,7 @@ export default function Toolbar(props) {
             <Navbar.Link href="/app/games">Games</Navbar.Link>
             <Navbar.Link href="/app/announcement/pending">Anúncios pendentes</Navbar.Link>
             <Navbar.Link href="/app/platforms">Plataformas</Navbar.Link>
+            <Navbar.Link href="/app/reported">Denúncias</Navbar.Link>
             {shouldAddSearchBar()}
         </Navbar.Content>
     </Navbar>
