@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Card, Text, Row, Progress, Badge, Container, Input, Spacer, Button, useInput } from "@nextui-org/react"
 import useAppData from "../../../data/hook/useAppData"
 import { useRouter } from 'next/router'
+import { api } from '../../../services/api'
 
 export default function games() {
   const [login, setLogin] = useState('')
@@ -58,32 +59,15 @@ export default function games() {
 
     async function call() {
       setLoading(true)
-      const origin = typeof window !== 'undefined' && window.location.origin
-        ? window.location.origin.replace(window.location.port, '8080')
-        : '';
 
-      const body = {
-        email: login,
-        password: password
-      }
+      try {
+        const response = await api.post('/auth', {
+          email: login,
+          password: password
+        })
 
-      const url = `${origin}/auth`
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-          'Accept-Encoding': 'application/gzip',
-        },
-        body: JSON.stringify(body)
-      })
-      const json = await response.json()
+        const json = response.data
 
-      if (json.message != null) {
-        setError(json.message)
-        setErrorAsInvisible(false)
-        setLoading(false)
-        logout()
-      } else {
         setError('')
         setErrorAsInvisible(true)
         setLoading(false)
@@ -92,6 +76,12 @@ export default function games() {
           token: json.token
         })
         router.push('/app/games')
+      } catch (err) {
+        const json = err.response.data
+        setError(json.message)
+        setErrorAsInvisible(false)
+        setLoading(false)
+        logout()
       }
     }
 
