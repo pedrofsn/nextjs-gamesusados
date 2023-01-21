@@ -13,6 +13,7 @@ export default function Searchbox(props) {
         <Text h3>Olá, {userType}!</Text>
         <Link href="/app/games">Games</Link>
         <Link href="/app/announcement/pending">Anúncios pendentes</Link>
+        <Link href="/app/platforms">Plataformas</Link>
         <a href="#contact">Contato</a>
         <input type="text"
             placeholder="Digite o nome do jogo.."
