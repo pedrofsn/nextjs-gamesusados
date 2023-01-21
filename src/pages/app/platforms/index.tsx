@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Table } from "@nextui-org/react";
 import { api } from '../../../services/api'
-import Searchbox from "../../../components/Searchbox";
+import Searchbox from "../../../components/Toolbar";
 import RegisterPlatform from "../../../components/RegisterPlatform";
 
 export default function platforms() {

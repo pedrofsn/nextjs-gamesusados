@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { Grid } from "@nextui-org/react";
 import { api } from '../../../services/api'
 import Announcement from "../../../components/Announcement";
-import Searchbox from "../../../components/Searchbox";
+import Searchbox from "../../../components/Toolbar";
 
 export default function gamesPending(ctx) {
     const [content, setContent] = useState(null)

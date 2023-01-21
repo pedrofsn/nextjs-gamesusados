@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import GameItem from '../../../components/GameItem.jsx'
-import Searchbox from "../../../components/Searchbox"
+import Searchbox from "../../../components/Toolbar"
 import { useRouter } from 'next/router'
 import { Grid } from "@nextui-org/react";
 import { api } from '../../../services/api'

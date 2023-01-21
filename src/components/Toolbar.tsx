@@ -2,7 +2,7 @@ import useAppData from "../data/hook/useAppData"
 import { Text, Navbar, Input } from "@nextui-org/react";
 import SystemSession from '../data/context/SystemSession'
 
-export default function Searchbox(props) {
+export default function Toolbar(props) {
     const { systemSession } = useAppData()
 
     const userType: SystemSession = systemSession.userSession.usertype
