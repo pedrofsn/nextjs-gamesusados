@@ -3,6 +3,7 @@ import GameItem from '../../../components/GameItem.jsx'
 import Searchbox from "../../../components/Toolbar"
 import { Grid } from "@nextui-org/react";
 import { api } from '../../../services/api'
+import RegisterGame from "../../../components/RegisterGame";
 
 export default function games() {
     const [games, setGames] = useState(null)
@@ -32,6 +33,7 @@ export default function games() {
 
     return <>
         <Searchbox onSearchTyped={onSearchTyped} />
+        <RegisterGame />
         <Grid.Container gap={2} justify="flex-start">
             {generateList()}
         </Grid.Container>

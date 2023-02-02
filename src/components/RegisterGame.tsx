@@ -1,8 +1,10 @@
-import { Button, Input, Card } from "@nextui-org/react";
+import { Button, Input, Card, Spacer } from "@nextui-org/react";
 import React, { useState } from "react"
 import { api } from "../services/api";
+import PlatformSelector from "./PlatformSelector";
 
-export default function RegisterPlatform(props) {
+export default function RegisterGame(props) {
+    const [title, setTitle] = useState('');
     const [platform, setPlatform] = useState('');
     const [error, setError] = useState('default');
 
@@ -39,11 +41,13 @@ export default function RegisterPlatform(props) {
         <Card css={{ mw: "300px", margin: "1%" }}
             variant="bordered">
             <Card.Body>
+                <PlatformSelector />
+                <Spacer y={1.5} />
                 <Input
                     clearable
-                    label="Cadastrar plataforma"
+                    label="Cadastrar game"
                     color="default"
-                    placeholder="Nome da plataforma"
+                    placeholder="Nome do game"
                     value={platform}
                     status={error}
                     onChange={(element) => setPlatform(element.target.value)}
