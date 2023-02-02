@@ -28,7 +28,7 @@ export default function Toolbar(props) {
         </Navbar.Brand>
         <Navbar.Content hideIn="xs">
             <Navbar.Link href="/app/games">Games</Navbar.Link>
-            <Navbar.Link href="/app/announcement/pending">Anúncios pendentes</Navbar.Link>
+            <Navbar.Link href="/app/announcement/all">Anúncios</Navbar.Link>
             <Navbar.Link href="/app/platforms">Plataformas</Navbar.Link>
             <Navbar.Link href="/app/reported">Denúncias</Navbar.Link>
             {shouldAddSearchBar()}

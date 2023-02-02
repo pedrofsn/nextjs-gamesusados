@@ -5,7 +5,7 @@ import { api } from '../services/api'
 
 export default function Announcement(props) {
   const { game, owner, announcement } = props
-  const [isEnabled, setEnabled] = React.useState(false);
+  const [isEnabled, setEnabled] = React.useState(announcement.enabled);
 
   async function call(id, isEnabled) {
     const url = `/announcements/${id}/toggle/${isEnabled}`
