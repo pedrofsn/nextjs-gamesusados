@@ -36,7 +36,7 @@ export default function games() {
         <Container css={{ width: '100%' }}>
             <Row css={{ width: '100%' }}>
                 <Col css={{ width: '25%' }}>
-                    <RegisterGame />
+                    <RegisterGame onGameSaved={() => call()} />
                 </Col>
                 <Col css={{ width: '75%' }}>
                     <Grid.Container gap={1} justify="flex-start">

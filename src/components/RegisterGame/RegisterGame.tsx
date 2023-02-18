@@ -1,14 +1,56 @@
-import { Image, Button, Input, Card, Spacer, Container } from "@nextui-org/react";
+import { Button, Input, Card, Spacer } from "@nextui-org/react";
 import React, { useState, useRef } from "react"
 import { api } from "../../services/api";
 import PlatformSelector from "../PlatformSelector";
 import ImageSelector from "./ImageSelector";
+import { parseCookies } from "nookies";
 
 export default function RegisterGame(props) {
-    const [gameName, setGameName] = useState('');
-    const [error, setError] = useState('default');
-    const [filePath, setFilePath] = useState('');
-    const [platformSelected, setPlatformSelected] = useState(null);
+    const [gameName, setGameName] = useState('')
+    const [error, setError] = useState('default')
+    const [fileSelected, setFileSelected] = useState(null)
+    const [platformSelected, setPlatformSelected] = useState(null)
+
+    async function saveGame() {
+        const idGame = createGame()
+        if (idGame != null) {
+            const imageCreated = createImageGame(idGame)
+            if (imageCreated != null) {
+                props.onGameSaved()
+            }
+        }
+    }
+
+    async function createGame() {
+        const url = `/games/platform/${platformSelected.key}/title/${gameName}`
+        const json = await api.post(url)
+        const result = json.data
+
+        if (result != null && result.id != null) {
+            return result.id
+        }
+        return -1
+    }
+
+    async function createImageGame(idGame: number) {
+        const url = `/images/games/${idGame}`
+        const body = new FormData()
+        body.append("file", fileSelected)
+        const { 'gamesusados.token': token } = parseCookies()
+
+        const json = await api.post(url, body, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'ClientSide': 'AppGamesUsados',
+                'Authorization': `Bearer ${token}`,
+            },
+        });
+        const result = json.data
+        if (result != null) {
+            return result
+        }
+        return null
+    }
 
     function tryToSave() {
         if (gameName == '') {
@@ -23,20 +65,19 @@ export default function RegisterGame(props) {
             return
         }
 
-        if (filePath == '') {
+        if (fileSelected == null) {
             alert('Selecione uma imagem!')
             return
         }
 
-        alert(filePath + platformSelected.key + platformSelected.name)
-        // TODO => cadastrar imagem e depois o game
+        saveGame()
     }
 
     return <>
         <Card css={{ mw: "300px", margin: "1%" }}
             variant="bordered">
             <Card.Body>
-                <ImageSelector onImageSelected={setFilePath} />
+                <ImageSelector onImageSelected={setFileSelected} />
                 <Spacer y={1.5} />
                 <PlatformSelector onPlatformSelected={setPlatformSelected} />
                 <Spacer y={1.5} />

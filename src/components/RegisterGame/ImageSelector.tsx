@@ -10,7 +10,7 @@ export default function ImageSelector(props) {
         const filePath = URL.createObjectURL(firstFile);
         setFile(filePath);
         setImageAsSelected(true);
-        props.onImageSelected(filePath)
+        props.onImageSelected(firstFile)
     };
 
     function openFileSelector() {
