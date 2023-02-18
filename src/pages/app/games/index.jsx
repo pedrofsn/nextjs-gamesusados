@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import GameItem from '../../../components/GameItem.jsx'
 import Searchbox from "../../../components/Toolbar"
-import { Grid } from "@nextui-org/react";
+import { Col, Grid, Row, Container } from "@nextui-org/react";
 import { api } from '../../../services/api'
 import RegisterGame from "../../../components/RegisterGame/RegisterGame";
 
@@ -33,9 +33,17 @@ export default function games() {
 
     return <>
         <Searchbox onSearchTyped={onSearchTyped} />
-        <RegisterGame />
-        <Grid.Container gap={2} justify="flex-start">
-            {generateList()}
-        </Grid.Container>
+        <Container css={{ width: '100%' }}>
+            <Row css={{ width: '100%' }}>
+                <Col css={{ width: '25%' }}>
+                    <RegisterGame />
+                </Col>
+                <Col css={{ width: '75%' }}>
+                    <Grid.Container gap={1} justify="flex-start">
+                        {generateList()}
+                    </Grid.Container>
+                </Col>
+            </Row>
+        </Container>
     </>
 }
