@@ -5,39 +5,6 @@ import { api } from "../services/api";
 export default function PlatformSelector(props) {
     const [menuItems, setMenuItems] = useState([]);
     const [selected, setSelected] = React.useState(new Set());
-    const [platform, setPlatform] = useState('');
-    const [error, setError] = useState('default');
-
-    const [content, setContent] = useState(null)
-
-    // async function call(platform) {
-    //     const url = `/platforms/register/${platform}`
-    //     try {
-    //         const json = await api.post(url)
-    //         const content = json.data
-
-    //         if (content.id != null && content.message == null) {
-    //             if (props.onRegistered != null) {
-    //                 props.onRegistered("Plataforma cadastrada com sucesso!")
-    //                 setPlatform('')
-    //             }
-    //         }
-    //     } catch (err) {
-    //         const content = err.response.data
-    //         alert(content.message)
-    //     }
-    // }
-
-    // function onPress() {
-    //     if (platform == '') {
-    //         setError('error')
-    //         return
-    //     }
-
-    //     setError('default')
-
-    //     call(platform)
-    // }
 
     async function call() {
         const json = await api.get('/platforms')
@@ -47,11 +14,16 @@ export default function PlatformSelector(props) {
         setMenuItems(items)
     }
 
-    function selectedDisplay2() {
-        const name = menuItems.find((element) => {
+    function displaySelectedItem() {
+        const selectedItem = menuItems.find((element) => {
             return element.key == selected.currentKey
-        })?.name
-        return name != undefined ? name : "Selecione uma plataforma"
+        })
+        const name = selectedItem?.name
+        const hasSelected = name != undefined
+        if (hasSelected && selectedItem != null) {
+            props.onPlatformSelected(selectedItem)
+        }
+        return hasSelected ? name : "Selecione uma plataforma"
     }
 
     useEffect(() => { call() }, [])
@@ -59,7 +31,7 @@ export default function PlatformSelector(props) {
     return <>
         <Dropdown>
             <Dropdown.Button flat color="primary" css={{ tt: "capitalize" }}>
-                {selectedDisplay2()}
+                {displaySelectedItem()}
             </Dropdown.Button>
             <Dropdown.Menu
                 items={menuItems}
