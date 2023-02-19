@@ -1,11 +1,11 @@
-import { Card, Grid, Row, Text, Switch } from "@nextui-org/react";
+import { Card, Grid, Row, Text, Switch, Container, Col, Spacer } from "@nextui-org/react";
 import React, { useEffect, useState } from "react"
 import Owner from './Owner.jsx'
 import { api } from '../services/api'
 
 export default function Announcement(props) {
   const { game, owner, announcement } = props
-  const [isEnabled, setEnabled] = React.useState(announcement.enabled);
+  const [isEnabled, setEnabled] = useState(announcement.enabled);
 
   async function call(id, isEnabled) {
     const url = `/announcements/${id}/toggle/${isEnabled}`
@@ -17,18 +17,6 @@ export default function Announcement(props) {
     setEnabled(enabled)
     call(announcement.id, enabled)
   }
-
-  const MockItem = ({ text }) => {
-    return (
-      <Card css={{ h: "$20", $$cardColor: '$colors$primary' }}>
-        <Card.Body>
-          <Text h6 size={15} color="white" css={{ m: 0 }}>
-            {text}
-          </Text>
-        </Card.Body>
-      </Card>
-    );
-  };
 
   useEffect(() => {
     setEnabled(announcement.isEnabled)
@@ -46,23 +34,22 @@ export default function Announcement(props) {
             alt={game.title}
           />
         </Card.Header>
-
-        <Grid.Container gap={2} justify="center">
-          <Grid xs={12} md={12}>
-            {owner != null ? <Owner owner={owner} /> : <></>}
-          </Grid>
-          <Grid xs={12} md={6}>
-            <MockItem text={owner.phone} />
-          </Grid>
-          <Grid xs={6} md={6} justify="center" alignItems="center">
-            <Switch checked={isEnabled}
-              onChange={(data) => updateAnnouncementStatus(data.target.checked)}
-            />
-          </Grid>
-          <Grid xs={12} md={12}>
-            <MockItem text={announcement.price.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })} />
-          </Grid>
-        </Grid.Container>
+        <Card.Body>
+          {owner != null ? <Owner owner={owner} /> : <></>}
+          <Spacer y={0.5} />
+          <Container css={{ width: '100%' }}>
+            <Row css={{ width: '100%' }}>
+              <Col css={{ width: '20%' }}>
+                <Switch checked={isEnabled}
+                  onChange={(data) => updateAnnouncementStatus(data.target.checked)}
+                />
+              </Col>
+              <Col css={{ width: '50%' }}>
+                <Text>{announcement.enabled ? "Anúncio ativado" : "Anúncio desativado"}</Text>
+              </Col>
+            </Row>
+          </Container>
+        </Card.Body>
         <Card.Divider />
         <Card.Footer css={{ justifyItems: "flex-start" }}>
           <Row wrap="wrap" justify="space-between" align="center">

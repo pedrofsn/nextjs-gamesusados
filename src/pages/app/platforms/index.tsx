@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Table } from "@nextui-org/react";
+import { Table, Container, Row, Col } from "@nextui-org/react";
 import { api } from '../../../services/api'
 import Searchbox from "../../../components/Toolbar";
 import RegisterPlatform from "../../../components/RegisterPlatform";
@@ -31,15 +31,23 @@ export default function platforms() {
 
     return <>
         <Searchbox />
-        <RegisterPlatform onRegistered={onRegistered} />
-        <Table>
-            <Table.Header>
-                <Table.Column>Id</Table.Column>
-                <Table.Column>Plataforma</Table.Column>
-            </Table.Header>
-            <Table.Body>
-                {getTable()}
-            </Table.Body>
-        </Table>
+        <Container css={{ width: '100%' }}>
+            <Row css={{ width: '100%' }}>
+                <Col css={{ width: '25%' }}>
+                    <RegisterPlatform onRegistered={onRegistered} />
+                </Col>
+                <Col css={{ width: '75%' }}>
+                    <Table>
+                        <Table.Header>
+                            <Table.Column>Id</Table.Column>
+                            <Table.Column>Plataforma</Table.Column>
+                        </Table.Header>
+                        <Table.Body>
+                            {getTable()}
+                        </Table.Body>
+                    </Table>
+                </Col>
+            </Row>
+        </Container>
     </>
 }
