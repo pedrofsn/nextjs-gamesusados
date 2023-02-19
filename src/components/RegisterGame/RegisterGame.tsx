@@ -3,7 +3,6 @@ import React, { useState, useRef } from "react"
 import { api } from "../../services/api";
 import PlatformSelector from "../PlatformSelector";
 import ImageSelector from "./ImageSelector";
-import { parseCookies } from "nookies";
 
 export default function RegisterGame(props) {
     const [gameName, setGameName] = useState('')
@@ -12,9 +11,9 @@ export default function RegisterGame(props) {
     const [platformSelected, setPlatformSelected] = useState(null)
 
     async function saveGame() {
-        const idGame = createGame()
+        const idGame = await createGame()
         if (idGame != null) {
-            const imageCreated = createImageGame(idGame)
+            const imageCreated = await createImageGame(idGame)
             if (imageCreated != null) {
                 props.onGameSaved()
             }
@@ -33,17 +32,12 @@ export default function RegisterGame(props) {
     }
 
     async function createImageGame(idGame: number) {
-        const url = `/images/games/${idGame}`
+        const url = `images/upload/games/${idGame}`
         const body = new FormData()
         body.append("file", fileSelected)
-        const { 'gamesusados.token': token } = parseCookies()
 
         const json = await api.post(url, body, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                'ClientSide': 'AppGamesUsados',
-                'Authorization': `Bearer ${token}`,
-            },
+            headers: { "Content-Type": "multipart/form-data" }
         });
         const result = json.data
         if (result != null) {
