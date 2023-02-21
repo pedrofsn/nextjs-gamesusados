@@ -8,7 +8,8 @@ export default function gamesPending(ctx) {
     const [content, setContent] = useState(null)
 
     async function call() {
-        const json = await api.get('/announcements/all')
+        const url = `/announcements/all`
+        const json = await api.get(url)
         setContent(json.data)
     }
 
