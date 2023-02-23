@@ -15,16 +15,18 @@ export default function gamesPending(ctx) {
 
     function generateList() {
         return content?.map((element) => {
-            return <Announcement
-                key={element.id}
-                game={element.game}
-                owner={element.owner}
-                announcement={{
-                    id: element.id,
-                    price: element.price,
-                    enabled: element.enabled,
-                }}
-            />
+            return <Grid xs={6} sm={3} key={element.id}>
+                <Announcement
+                    key={element.id}
+                    game={element.game}
+                    owner={element.owner}
+                    announcement={{
+                        id: element.id,
+                        price: element.price,
+                        enabled: element.enabled,
+                    }}
+                />
+            </Grid>
         })
     }
 
