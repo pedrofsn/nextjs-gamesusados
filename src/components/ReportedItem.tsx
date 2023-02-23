@@ -10,10 +10,7 @@ export default function ReportedItem(props) {
     const [announcement, setAnnouncement] = useState(null)
     const [visible, setVisible] = useState(false)
 
-    const closeHandler = () => {
-        setVisible(false);
-        console.log("closed");
-    }
+    const onCloseModal = () => { setVisible(false) }
 
     async function loadAnnouncement(reportData: ReportData) {
         if (reportData) {
@@ -57,18 +54,16 @@ export default function ReportedItem(props) {
 
     useEffect(() => { openDetail(reportData) }, [reportData])
 
-    return <>
-        <Modal
-            closeButton
-            aria-labelledby="modal-title"
-            open={visible}
-            onClose={closeHandler}>
-            <Modal.Header>
-                <h2>{reportData.type}</h2>
-            </Modal.Header>
-            <Modal.Body>
-                {announcement}
-            </Modal.Body>
-        </Modal>
-    </>
+    return <Modal
+        closeButton
+        aria-labelledby="modal-title"
+        open={visible}
+        onClose={onCloseModal}>
+        <Modal.Header>
+            <h2>{reportData.type}</h2>
+        </Modal.Header>
+        <Modal.Body>
+            {announcement}
+        </Modal.Body>
+    </Modal>
 }
