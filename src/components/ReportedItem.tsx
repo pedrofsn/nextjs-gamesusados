@@ -23,19 +23,17 @@ export default function ReportedItem(props) {
 
             setVisible(true)
 
-            const result = <Announcement
-                key={element.id}
-                game={element.game}
-                owner={element.owner}
-                announcement={{
-                    id: element.id,
-                    price: element.price,
-                    enabled: element.enabled,
-                }}
-            />
-
             const data = <Grid.Container gap={2} justify="flex-start">
-                {result}
+                <Announcement
+                    key={element.id}
+                    game={element.game}
+                    owner={element.owner}
+                    announcement={{
+                        id: element.id,
+                        price: element.price,
+                        enabled: element.enabled,
+                    }}
+                />
             </Grid.Container>
 
             setAnnouncement(data)
