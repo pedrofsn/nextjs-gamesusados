@@ -1,5 +1,5 @@
 export enum ItemType {
-  Announcement = 'announcement',
-  Game = 'game',
-  Unknown = 'unknown'
+  Announcement = 'Anúncio',
+  Game = 'Game',
+  Unknown = 'Desconhecido'
 }
