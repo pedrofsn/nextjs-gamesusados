@@ -7,7 +7,7 @@ import Announcement from "./Announcement"
 
 export default function ReportedItem(props) {
     const { reportData } = props
-    const [announcement, setAnnouncement] = useState(null)
+    const [content, setContent] = useState(null)
     const [visible, setVisible] = useState(false)
 
     const onCloseModal = () => { setVisible(false) }
@@ -33,7 +33,7 @@ export default function ReportedItem(props) {
                 />
             </Grid.Container>
 
-            setAnnouncement(data)
+            setContent(data)
         }
     }
 
@@ -63,7 +63,7 @@ export default function ReportedItem(props) {
             <h2>{reportData?.type}</h2>
         </Modal.Header>
         <Modal.Body>
-            {announcement}
+            {content}
         </Modal.Body>
     </Modal>
 }

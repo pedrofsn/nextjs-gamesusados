@@ -20,23 +20,18 @@ export default function platforms() {
     function getTable() {
         return content?.content?.map((element) => {
             const { announcement, game } = element
-            var type: ItemType
 
-            function getType(): string {
+            function getType(): ItemType {
                 if (announcement != null && game != null) {
-                    type = ItemType.Announcement
-                    return "Anúncio"
+                    return ItemType.Announcement
                 } if (announcement == null && game != null) {
-                    type = ItemType.Game
-                    return "Game"
+                    return ItemType.Game
                 } else {
-                    type = ItemType.Unknown
-                    return "Desconhecido"
+                    return ItemType.Unknown
                 }
             }
 
-            getType()
-            const data = new ReportData(element.id, type)
+            const data = new ReportData(element.id, getType())
 
             return (
                 <Table.Row key={element.id}>
