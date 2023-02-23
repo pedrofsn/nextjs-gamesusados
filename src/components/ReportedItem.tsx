@@ -69,17 +69,6 @@ export default function ReportedItem(props) {
             <Modal.Body>
                 {announcement}
             </Modal.Body>
-            <Modal.Footer>
-                <Button auto
-                    flat
-                    color="error"
-                    onPress={closeHandler}>
-                    Fechar
-                </Button>
-                <Button auto onPress={closeHandler}>
-                    Sign in
-                </Button>
-            </Modal.Footer>
         </Modal>
     </>
 }
