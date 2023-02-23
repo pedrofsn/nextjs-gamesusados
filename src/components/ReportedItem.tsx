@@ -60,7 +60,7 @@ export default function ReportedItem(props) {
         open={visible}
         onClose={onCloseModal}>
         <Modal.Header>
-            <h2>{reportData.type}</h2>
+            <h2>{reportData?.type}</h2>
         </Modal.Header>
         <Modal.Body>
             {announcement}
