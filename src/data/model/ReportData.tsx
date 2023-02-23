@@ -6,7 +6,3 @@ export class ReportData {
     readonly type: ItemType
   ) { }
 }
-
-interface CanShowAlert {
-  showAlert(): void;
-}
