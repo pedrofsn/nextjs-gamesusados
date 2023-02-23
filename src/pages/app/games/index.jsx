@@ -20,7 +20,13 @@ export default function games() {
     }
 
     function generateList() {
-        return games?.content?.map((game) => { return <GameItem key={game.id} game={game} /> })
+        return games?.content?.map((game) => {
+            return <>
+                <Grid xs={6} sm={3} key={game.id}>
+                    <GameItem key={game.id} game={game} />
+                </Grid>
+            </>
+        })
     }
 
     function onSearchTyped(text) {

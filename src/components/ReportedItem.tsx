@@ -4,6 +4,7 @@ import { ItemType } from "../data/model/ItemType"
 import { ReportData } from "../data/model/ReportData"
 import { api } from "../services/api"
 import Announcement from "./Announcement"
+import GameItem from "./GameItem"
 
 export default function ReportedItem(props) {
     const { reportData } = props
@@ -37,6 +38,22 @@ export default function ReportedItem(props) {
         }
     }
 
+    async function loadGame(reportData: ReportData) {
+        if (reportData) {
+            const url = `/games/${reportData.id}`
+            const json = await api.get(url)
+            const element = json.data
+
+            setVisible(true)
+
+            const data = <Grid.Container gap={2} justify="flex-start">
+                <GameItem key={element.id} game={element} />
+            </Grid.Container>
+
+            setContent(data)
+        }
+    }
+
     function openDetail(reportData: ReportData) {
         if (reportData) {
             switch (reportData.type) {
@@ -45,7 +62,7 @@ export default function ReportedItem(props) {
                     break;
                 }
                 case ItemType.Game: {
-                    alert('game')
+                    loadGame(reportData)
                     break;
                 }
             }
