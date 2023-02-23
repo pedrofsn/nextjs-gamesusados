@@ -1,4 +1,4 @@
-import { Button, Modal, Grid } from "@nextui-org/react"
+import { Modal, Grid } from "@nextui-org/react"
 import { useEffect, useState } from "react"
 import { ItemType } from "../data/model/ItemType"
 import { ReportData } from "../data/model/ReportData"
