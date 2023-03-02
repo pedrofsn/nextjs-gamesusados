@@ -37,6 +37,8 @@ export default function games() {
         call()
     }, [])
 
+    // TODO 'RegisterGame' só deve ser exibido se o user for do tipo MANAGER
+
     return <>
         <Searchbox onSearchTyped={onSearchTyped} />
         <Container css={{ width: '100%' }}>

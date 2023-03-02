@@ -10,6 +10,8 @@ export default function RegisterGame(props) {
     const [fileSelected, setFileSelected] = useState(null)
     const [platformSelected, setPlatformSelected] = useState(null)
 
+    // TODO 'RegisterGame' uma vez que o jogo for cadastrado o form precisa ser limpado
+
     async function saveGame() {
         const idGame = await createGame()
         if (idGame != null) {
