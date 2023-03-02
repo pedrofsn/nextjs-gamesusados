@@ -17,6 +17,8 @@ export default function ImageSelector(props) {
         hiddenFileInput.current.click()
     }
 
+    // TODO 'ImageSelector' uma vez que o jogo for cadastrado o form precisa ser limpado
+
     return <>
         <Card.Body>
             {

@@ -12,11 +12,19 @@ export default function RegisterGame(props) {
 
     // TODO 'RegisterGame' uma vez que o jogo for cadastrado o form precisa ser limpado
 
+    function clearForm() {
+        setGameName('')
+        setError('default')
+        setFileSelected(null)
+        setPlatformSelected(null)
+    }
+
     async function saveGame() {
         const idGame = await createGame()
         if (idGame != null) {
             const imageCreated = await createImageGame(idGame)
             if (imageCreated != null) {
+                clearForm()
                 props.onGameSaved()
             }
         }
@@ -92,6 +100,12 @@ export default function RegisterGame(props) {
                     color="success"
                     onPress={tryToSave}>
                     Cadastrar
+                </Button>
+
+                <Button auto flat
+                    color="error"
+                    onPress={clearForm}>
+                    Limpar form
                 </Button>
             </Card.Footer>
         </Card>

@@ -45,6 +45,9 @@ export default function platforms() {
         })
     }
 
+    // TODO acrescentar colunas para data e hora da denúncia.
+    // TODO terá algo pra marcar uma denúncia como "lida"?
+
     return <>
         <Searchbox />
         <Table>
