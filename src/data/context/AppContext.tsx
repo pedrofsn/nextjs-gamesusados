@@ -14,7 +14,14 @@ const emptySystemSession: SystemSession = {
     userSession: emptySession
 }
 
-const AppContext = createContext<SystemSession>(emptySystemSession)
+interface AppContextProps {
+    systemSession?: SystemSession
+    updateUserSession?: (UserSession) => void
+    loadSession?: () => void
+    logout?: () => void
+}
+
+const AppContext = createContext<AppContextProps>({})
 
 export function AppProvider(props) {
     const [systemSession, setSystemSession] = useState<SystemSession>(emptySystemSession)
