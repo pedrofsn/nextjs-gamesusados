@@ -1,10 +1,10 @@
 import useAppData from "../data/hook/useAppData"
 import { Text, Navbar, Input } from "@nextui-org/react";
-import SystemSession from '../data/context/SystemSession'
+import { UserType } from "../data/context/UserSession";
 
 export default function Toolbar(props) {
     const { systemSession } = useAppData()
-    const userType: SystemSession = systemSession.userSession.usertype
+    const userType: UserType = systemSession.userSession.usertype
     const { onSearchTyped } = props
     const hasSearch = onSearchTyped != null
 
@@ -28,9 +28,9 @@ export default function Toolbar(props) {
         </Navbar.Brand>
         <Navbar.Content hideIn="xs">
             <Navbar.Link href="/app/games">Games</Navbar.Link>
-            <Navbar.Link href="/app/announcement/all">Anúncios</Navbar.Link>
+            {userType == 'MANAGER' ? <Navbar.Link href="/app/announcement/all">Anúncios</Navbar.Link> : <></>}
             <Navbar.Link href="/app/platforms">Plataformas</Navbar.Link>
-            <Navbar.Link href="/app/reported">Denúncias</Navbar.Link>
+            {userType == 'MANAGER' ? <Navbar.Link href="/app/reported">Denúncias</Navbar.Link> : <></>}
             {shouldAddSearchBar()}
         </Navbar.Content>
     </Navbar>
