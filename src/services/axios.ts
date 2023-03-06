@@ -14,6 +14,22 @@ export function getAPIClient(ctx?: any) {
         return config;
     })
 
+    api.interceptors.response.use((response) => response, (error) => {
+        if (error != null) {
+            // Objeto de erro
+            // error.response.data
+            // {"timestamp":"2023-03-06T09:06:54.184+00:00","status":403,"error":"Forbidden","message":"Access Denied","path":"/report"}
+
+            if (403 == error.response.status) {
+
+            }
+
+            console.log(JSON.stringify(error.response.data))
+        }
+        // whatever you want to do with the error
+        throw error;
+    })
+
     api.defaults.headers['Content-Type'] = `application/json`;
     api.defaults.headers['ClientSide'] = `AppGamesUsados`;
 
