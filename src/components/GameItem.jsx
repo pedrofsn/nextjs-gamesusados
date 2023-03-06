@@ -1,4 +1,4 @@
-import { Card, Grid, Row, Text } from "@nextui-org/react";
+import { Card, Row, Text } from "@nextui-org/react";
 import Owner from './Owner.jsx'
 
 export default function GameItem(props) {
