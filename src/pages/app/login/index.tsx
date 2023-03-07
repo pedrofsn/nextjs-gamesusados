@@ -3,6 +3,7 @@ import { Card, Text, Row, Progress, Badge, Container, Input, Spacer, Button, use
 import useAppData from "../../../data/hook/useAppData"
 import { useRouter } from 'next/router'
 import { api } from '../../../services/api'
+import UserSession from "../../../data/context/UserSession"
 
 export default function games() {
   const [login, setLogin] = useState('')
@@ -10,7 +11,7 @@ export default function games() {
   const [isErrorInvisible, setErrorAsInvisible] = React.useState(true);
   const [error, setError] = useState('')
   const [isLoading, setLoading] = React.useState(false);
-  const { loadSession, updateUserSession, logout } = useAppData()
+  const { loadSession, saveSession, logout } = useAppData()
   const router = useRouter()
 
   function updateData(updateFunction, e) {
@@ -67,21 +68,21 @@ export default function games() {
         })
 
         const json = response.data
+        const userSession: UserSession = {
+          usertype: json.usertype,
+          token: json.token
+        }
 
         setError('')
         setErrorAsInvisible(true)
         setLoading(false)
-        updateUserSession({
-          usertype: json.usertype,
-          token: json.token
-        })
+        saveSession(userSession)
         router.push('/app/games')
       } catch (err) {
         const json = err.response.data
         setError(json.message)
         setErrorAsInvisible(false)
         setLoading(false)
-        logout()
       }
     }
 

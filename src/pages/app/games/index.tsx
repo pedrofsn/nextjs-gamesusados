@@ -4,13 +4,12 @@ import Searchbox from "../../../components/Toolbar"
 import { Col, Grid, Row, Container } from "@nextui-org/react"
 import { api } from '../../../services/api'
 import RegisterGame from "../../../components/RegisterGame/RegisterGame"
-import useAppData from "../../../data/hook/useAppData"
-import { UserType } from "../../../data/context/UserSession"
+import { parseCookies } from "nookies"
+import { UserType } from "../../../data/context/UserSession.jsx"
 
-export default function games() {
+export default function games(ctx?: any) {
     const [games, setGames] = useState(null)
-    const { systemSession } = useAppData()
-    const userType: UserType = systemSession.userSession.usertype
+    const [userType, setUserType] = useState<UserType>(null)
 
     async function call(text = "") {
         const json = await api({
@@ -38,8 +37,10 @@ export default function games() {
     }
 
     useEffect(() => {
+        const { 'gamesusados.usertype': userType } = parseCookies()
+        setUserType(userType as UserType || 'USER')
         call()
-    }, [])
+    }, [userType])
 
     // TODO 'RegisterGame' só deve ser exibido se o user for do tipo MANAGER
 

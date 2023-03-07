@@ -1,12 +1,15 @@
+import { Text, Navbar, Input, Button, Link } from "@nextui-org/react"
+import { parseCookies } from "nookies"
+import { useEffect, useState } from "react"
+import { UserType } from "../data/context/UserSession"
 import useAppData from "../data/hook/useAppData"
-import { Text, Navbar, Input } from "@nextui-org/react";
-import { UserType } from "../data/context/UserSession";
 
-export default function Toolbar(props) {
-    const { systemSession } = useAppData()
-    const userType: UserType = systemSession.userSession.usertype
+export default function Toolbar(props, ctx?: any) {
+    const [userType, setUserType] = useState<UserType>(null)
+    const [token, setToken] = useState(null)
     const { onSearchTyped } = props
     const hasSearch = onSearchTyped != null
+    const { logout } = useAppData()
 
     function shouldAddSearchBar() {
         if (hasSearch) {
@@ -22,6 +25,12 @@ export default function Toolbar(props) {
         return <></>
     }
 
+    useEffect(() => {
+        const { 'gamesusados.token': token, 'gamesusados.usertype': userType } = parseCookies()
+        setToken(token)
+        setUserType(userType as UserType || 'USER')
+    }, [token, userType])
+
     return <Navbar isBordered>
         <Navbar.Brand>
             <Text h3>Olá, {userType}!</Text>
@@ -32,6 +41,19 @@ export default function Toolbar(props) {
             <Navbar.Link href="/app/platforms">Plataformas</Navbar.Link>
             {userType == 'MANAGER' ? <Navbar.Link href="/app/reported">Denúncias</Navbar.Link> : <></>}
             {shouldAddSearchBar()}
+            {token != null ?
+                <Navbar.Item>
+                    <Button auto flat as={Link} onPress={logout}>
+                        Logout
+                    </Button>
+                </Navbar.Item>
+                :
+                <Navbar.Item>
+                    <Button auto flat as={Link} href="/app/login">
+                        Login
+                    </Button>
+                </Navbar.Item>
+            }
         </Navbar.Content>
     </Navbar>
 }

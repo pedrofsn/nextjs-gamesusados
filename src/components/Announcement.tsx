@@ -10,7 +10,6 @@ export default function Announcement(props) {
   async function call(id, isEnabled) {
     const url = `/announcements/${id}/toggle/${isEnabled}`
     const json = await api.post(url)
-    console.log(json.data)
   }
 
   function updateAnnouncementStatus(enabled) {

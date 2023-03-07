@@ -1,76 +1,54 @@
-import { useState, createContext, useEffect } from "react"
-import Cookies from 'js-cookie'
-import UserSession from './UserSession'
-import SystemSession from './SystemSession'
-import { setCookie, parseCookies } from 'nookies'
+import { createContext, useEffect } from "react"
+import { setCookie, destroyCookie, parseCookies } from 'nookies'
 import { api } from '../../services/api'
-
-const emptySession: UserSession = {
-    usertype: 'USER',
-    token: ''
-}
-
-const emptySystemSession: SystemSession = {
-    userSession: emptySession
-}
+import UserSession from "./UserSession"
+import { useRouter } from 'next/router'
 
 interface AppContextProps {
-    systemSession?: SystemSession
-    updateUserSession?: (UserSession) => void
-    loadSession?: () => void
+    saveSession?: (UserSession) => void
+    loadSession?: () => boolean
     logout?: () => void
 }
 
 const AppContext = createContext<AppContextProps>({})
 
-export function AppProvider(props) {
-    const [systemSession, setSystemSession] = useState<SystemSession>(emptySystemSession)
+export function AppProvider(props, ctx?: any) {
+    const router = useRouter()
+    const route = '/app/games'
 
-    function updateUserSession(userSession: UserSession) {
-        const newSystemSession: SystemSession = {
-            userSession: userSession
-        }
-        updateSystemSession(newSystemSession)
-    }
-
-    function updateSystemSession(newSystemSession: SystemSession) {
-        setSystemSession(newSystemSession)
-        saveSession(newSystemSession)
-    }
-
-    function saveSession(systemSession: SystemSession) {
-        const token = systemSession.userSession.token
-        console.log('salvou o cookie ' + token)
-        setCookie(undefined, 'gamesusados.token', token, {
-            maxAge: 60 * 60 * 1, // 1 hour
-        })
+    function saveSession(userSession: UserSession) {
+        const { usertype, token } = userSession
+        const maxAge = 60 * 60 * 1 // 1 hour
+        setCookie(undefined, 'gamesusados.usertype', usertype, { maxAge: maxAge })
+        setCookie(undefined, 'gamesusados.token', token, { maxAge: maxAge, })
         api.defaults.headers['Authorization'] = `Bearer ${token}`;
     }
 
     function loadSession(): boolean {
-        // const json = Cookies.get(cookieName)
-        // if (json != null && json != '') {
-        //     const hasChanged = JSON.stringify(systemSession) != json
-        //     const newSystemSession: SystemSession = JSON.parse(json)
-        //     if (hasChanged) {
-        //         updateSystemSession(newSystemSession)
-        //         return true
-        //     }
-        // }
+        const { 'gamesusados.token': token, 'gamesusados.usertype': userType } = parseCookies(ctx)
+        if (token != null && userType != null) {
+            return true
+        }
         return false
     }
 
     function logout() {
-        Cookies.remove('gamesusados.token')
-        setSystemSession(emptySystemSession)
+        destroyCookie(undefined, 'gamesusados.token')
+        destroyCookie(undefined, 'gamesusados.usertype')
+
+        if (router.pathname == route) {
+            router.reload()
+        } else {
+            router.replace(route)
+        }
+
     }
 
     useEffect(() => { loadSession() });
 
     return (
         <AppContext.Provider value={{
-            systemSession,
-            updateUserSession,
+            saveSession,
             loadSession,
             logout
         }}>
