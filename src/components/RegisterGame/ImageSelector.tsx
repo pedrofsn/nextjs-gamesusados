@@ -1,12 +1,16 @@
 import { Image, Button, Card } from "@nextui-org/react";
 import React, { useState, useRef } from "react"
 
-export default function ImageSelector(props) {
+interface ImageSelectorProps {
+    onImageSelected: (MediaSource) => void
+}
+
+export default function ImageSelector(props: ImageSelectorProps) {
     const [hasImageSelected, setImageAsSelected] = useState(false);
     const hiddenFileInput = useRef(null);
     const [file, setFile] = useState('');
 
-    function selectFile(firstFile) {
+    function selectFile(firstFile: MediaSource) {
         const filePath = URL.createObjectURL(firstFile);
         setFile(filePath);
         setImageAsSelected(true);

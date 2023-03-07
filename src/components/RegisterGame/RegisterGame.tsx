@@ -7,7 +7,7 @@ import ImageSelector from "./ImageSelector";
 export default function RegisterGame(props) {
     const [gameName, setGameName] = useState('')
     const [error, setError] = useState('default')
-    const [fileSelected, setFileSelected] = useState(null)
+    const [fileSelected, setFileSelected] = useState<MediaSource>(null)
     const [platformSelected, setPlatformSelected] = useState(null)
 
     // TODO 'RegisterGame' uma vez que o jogo for cadastrado o form precisa ser limpado
