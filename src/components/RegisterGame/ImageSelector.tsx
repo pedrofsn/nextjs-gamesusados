@@ -39,7 +39,7 @@ export default function ImageSelector(props: ImageSelectorProps) {
             <input type="file"
                 ref={hiddenFileInput}
                 onChange={(element) => selectFile(element.target.files[0])}
-                accept="image/*"
+                accept="image/png, image/jpeg"
                 style={{ display: 'none' }} />
             <Button auto flat
                 color="warning"
