@@ -1,8 +1,8 @@
-import { Button, Input, Card, Spacer } from "@nextui-org/react";
-import React, { useState, useRef } from "react"
-import { api } from "../../services/api";
-import PlatformSelector from "../PlatformSelector";
-import ImageSelector from "./ImageSelector";
+import { Button, Input, Card, Spacer } from "@nextui-org/react"
+import React, { useState } from "react"
+import { api } from "../../services/api"
+import PlatformSelector from "../PlatformSelector"
+import ImageSelector from "./ImageSelector"
 
 export default function RegisterGame(props) {
     const [gameName, setGameName] = useState('')
