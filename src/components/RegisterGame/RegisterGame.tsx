@@ -10,7 +10,7 @@ export default function RegisterGame(props) {
     const [fileSelected, setFileSelected] = useState<MediaSource>(null)
     const [platformSelected, setPlatformSelected] = useState(null)
 
-    // TODO 'RegisterGame' uma vez que o jogo for cadastrado o form precisa ser limpado
+    // TODO [MELHORIA] 'RegisterGame' uma vez que o jogo for cadastrado o form precisa ser limpado
 
     function clearForm() {
         setGameName('')

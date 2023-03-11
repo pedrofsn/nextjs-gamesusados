@@ -49,8 +49,6 @@ export default function games(ctx?: any) {
         router.reload()
     }
 
-    // TODO 'RegisterGame' só deve ser exibido se o user for do tipo MANAGER
-
     const uiManager = <Container css={{ width: '100%' }}>
         <Row css={{ width: '100%' }}>
             <Col css={{ width: '25%' }}>

@@ -90,7 +90,7 @@ export default function games() {
   }
 
   useEffect(() => {
-    // TODO [melhoria] verificar na API se este token está válido
+    // TODO [MELHORIA] verificar na API se este token está válido
     if (loadSession()) {
       router.push('/app/games')
     }
