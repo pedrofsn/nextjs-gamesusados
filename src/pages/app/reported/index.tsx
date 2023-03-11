@@ -19,7 +19,7 @@ export default function platforms() {
 
     function getTable() {
         return content?.content?.map((element) => {
-            const { announcement, game } = element
+            const { announcement, game, metadata } = element
 
             function getType(): ItemType {
                 if (announcement != null && game != null) {
@@ -31,10 +31,12 @@ export default function platforms() {
                 }
             }
 
-            const data = new ReportData(element.id, getType())
+            const data = new ReportData(element.id, metadata, getType())
 
             return (
                 <Table.Row key={element.id}>
+                    <Table.Cell>{metadata.createdBy}</Table.Cell>
+                    <Table.Cell>{metadata.textCreatedAt}</Table.Cell>
                     <Table.Cell>{element.description}</Table.Cell>
                     <Table.Cell>{getType()}</Table.Cell>
                     <Table.Cell>
@@ -45,13 +47,14 @@ export default function platforms() {
         })
     }
 
-    // TODO [NECESSÁRIO]  acrescentar colunas para data e hora da denúncia.
-    // TODO [MELHORIA]  terá algo pra marcar uma denúncia como "lida"?
+    // TODO [MELHORIA] marcar uma denúncia como "resolvida"
 
     return <>
         <Searchbox />
         <Table>
             <Table.Header>
+                <Table.Column>Relator</Table.Column>
+                <Table.Column>Criado em</Table.Column>
                 <Table.Column>Descrição</Table.Column>
                 <Table.Column>Item denunciado</Table.Column>
                 <Table.Column>Açao</Table.Column>
