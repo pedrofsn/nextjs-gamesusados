@@ -6,10 +6,12 @@ import { api } from '../../../services/api'
 import RegisterGame from "../../../components/RegisterGame/RegisterGame"
 import { parseCookies } from "nookies"
 import { UserType } from "../../../data/context/UserSession.jsx"
+import { useRouter } from 'next/router'
 
 export default function games(ctx?: any) {
     const [games, setGames] = useState(null)
     const [userType, setUserType] = useState<UserType>(null)
+    const router = useRouter()
 
     async function call(text = "") {
         const json = await api({
@@ -42,12 +44,17 @@ export default function games(ctx?: any) {
         call()
     }, [userType])
 
+    function onGameSaved() {
+        call()
+        router.reload()
+    }
+
     // TODO 'RegisterGame' só deve ser exibido se o user for do tipo MANAGER
 
     const uiManager = <Container css={{ width: '100%' }}>
         <Row css={{ width: '100%' }}>
             <Col css={{ width: '25%' }}>
-                <RegisterGame onGameSaved={() => call()} />
+                <RegisterGame onGameSaved={onGameSaved} />
             </Col>
             <Col css={{ width: '75%' }}>
                 <Grid.Container gap={1} justify="flex-start">
