@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
-import GameItem from '../../../components/GameItem.jsx'
-import Searchbox from "../../../components/Toolbar"
+import GameItem from '../../components/GameItem.jsx'
+import Searchbox from "../../components/Toolbar"
 import { Col, Grid, Row, Container } from "@nextui-org/react"
-import { api } from '../../../services/api'
-import RegisterGame from "../../../components/RegisterGame/RegisterGame"
+import { api } from '../../services/api'
+import RegisterGame from "../../components/RegisterGame/RegisterGame"
 import { parseCookies } from "nookies"
-import { UserType } from "../../../data/context/UserSession.jsx"
+import { UserType } from "../../data/context/UserSession.jsx"
 import { useRouter } from 'next/router'
 
 export default function games(ctx?: any) {

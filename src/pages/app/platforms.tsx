@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 import { Table, Container, Row, Col } from "@nextui-org/react";
-import { api } from '../../../services/api'
-import Searchbox from "../../../components/Toolbar";
-import RegisterPlatform from "../../../components/RegisterPlatform";
+import { api } from '../../services/api'
+import Searchbox from "../../components/Toolbar";
+import RegisterPlatform from "../../components/RegisterPlatform";
 import { parseCookies } from "nookies"
-import { UserType } from "../../../data/context/UserSession.jsx"
+import { UserType } from "../../data/context/UserSession.jsx"
 
 export default function platforms() {
     const [content, setContent] = useState(null)

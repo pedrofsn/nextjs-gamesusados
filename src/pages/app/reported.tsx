@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 import { Table, Button } from "@nextui-org/react";
-import { api } from '../../../services/api'
-import Searchbox from "../../../components/Toolbar";
-import { ItemType } from "../../../data/model/ItemType";
-import { ReportData } from "../../../data/model/ReportData";
-import ReportedItem from "../../../components/ReportedItem";
+import { api } from '../../services/api'
+import Searchbox from "../../components/Toolbar";
+import { ItemType } from "../../data/model/ItemType";
+import { ReportData } from "../../data/model/ReportData";
+import ReportedItem from "../../components/ReportedItem";
 
 export default function platforms() {
     const [content, setContent] = useState(null)
@@ -31,7 +31,7 @@ export default function platforms() {
                 }
             }
 
-            const data = new ReportData(element.id, metadata, getType())
+            const data = new ReportData(element.id, getType())
 
             return (
                 <Table.Row key={element.id}>

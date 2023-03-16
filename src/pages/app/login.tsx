@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { Card, Text, Row, Progress, Badge, Container, Input, Spacer, Button, useInput } from "@nextui-org/react"
-import useAppData from "../../../data/hook/useAppData"
+import useAppData from "../../data/hook/useAppData"
 import { useRouter } from 'next/router'
-import { api } from '../../../services/api'
-import UserSession from "../../../data/context/UserSession"
+import { api } from '../../services/api'
+import UserSession from "../../data/context/UserSession"
 
 export default function games() {
   const [login, setLogin] = useState('')
