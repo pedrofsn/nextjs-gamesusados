@@ -40,6 +40,7 @@ export default function Toolbar(props, ctx?: any) {
             {userType == 'MANAGER' ? <Navbar.Link href="/app/announcement/all">Anúncios</Navbar.Link> : <></>}
             <Navbar.Link href="/app/platforms">Plataformas</Navbar.Link>
             {userType == 'MANAGER' ? <Navbar.Link href="/app/reported">Denúncias</Navbar.Link> : <></>}
+            {userType == 'ADMIN' || userType == 'MANAGER' ? <Navbar.Link href="/app/users">Usuários</Navbar.Link> : <></>}
             {shouldAddSearchBar()}
             {token != null ?
                 <Navbar.Item>
