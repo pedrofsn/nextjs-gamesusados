@@ -146,3 +146,5 @@ export default function games() {
     </Card>
   </Container>
 }
+// TODO [PENDENTE] Lista de usuários cadastrados
+// TODO [PENDENTE] Cadastro de usuário do tipo gerente (por parte do admin)
