@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import Searchbox from "../../components/Toolbar"
 import { Col, Row, Container, Table } from "@nextui-org/react"
 import { api } from '../../services/api'
-import RegisterGame from "../../components/RegisterGame/RegisterGame"
+import RegisterUser from "../../components/RegisterUser"
 import { parseCookies } from "nookies"
 import { UserType } from "../../data/context/UserSession.jsx"
 import { useRouter } from 'next/router'
@@ -13,8 +13,15 @@ export default function users() {
     const router = useRouter()
 
     async function call() {
-        const json = await api.get('/users')
-        setContent(json.data)
+        try {
+            const json = await api.get('/users')
+            setContent(json.data)
+        } catch (err) {
+            const content = err.response.data
+            if (403 == content.status) {
+                router.push('login')
+            }
+        }
     }
 
     useEffect(() => {
@@ -25,7 +32,6 @@ export default function users() {
 
     function onUserSaved() {
         call()
-        router.reload()
     }
 
     function getTable() {
@@ -58,7 +64,7 @@ export default function users() {
     const uiAdmin = <Container css={{ width: '100%' }}>
         <Row css={{ width: '75%' }}>
             <Col css={{ width: '25%' }}>
-                {/* TODO criar componente de cadastro de usuário para o admin */}
+                <RegisterUser onRegistered={onUserSaved} />
             </Col>
             <Col css={{ width: '75%' }}>
                 {uiManager}
