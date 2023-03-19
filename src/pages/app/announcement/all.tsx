@@ -1,16 +1,23 @@
 import { useEffect, useState } from "react"
-import { Grid } from "@nextui-org/react";
+import { Grid } from "@nextui-org/react"
 import { api } from '../../../services/api'
-import Announcement from "../../../components/Announcement";
-import Searchbox from "../../../components/Toolbar";
+import Announcement from "../../../components/Announcement"
+import Searchbox from "../../../components/Toolbar"
+import { useRouter } from "next/router"
+import { handleError } from "../../../services/ErrorRedirect"
 
 export default function gamesPending(ctx) {
     const [content, setContent] = useState(null)
+    const router = useRouter()
 
     async function call() {
-        const url = `/announcements/all`
-        const json = await api.get(url)
-        setContent(json.data)
+        try {
+            const url = `/announcements/all`
+            const json = await api.get(url)
+            setContent(json.data)
+        } catch (error) {
+            handleError(router, error)
+        }
     }
 
     function generateList() {

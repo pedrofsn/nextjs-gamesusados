@@ -4,6 +4,7 @@ import { Grid } from "@nextui-org/react"
 import { api } from '../../../services/api'
 import Announcement from "../../../components/Announcement"
 import Searchbox from "../../../components/Toolbar"
+import { handleError } from "../../../services/ErrorRedirect"
 
 export default function announcementDetail() {
     const [content, setContent] = useState([])
@@ -11,12 +12,16 @@ export default function announcementDetail() {
     const idAnnouncement = router.query.idAnnouncement
 
     async function call(idAnnouncement) {
-        if (idAnnouncement) {
-            const url = `/announcements/${idAnnouncement}`
-            const json = await api.get(url)
-            const array = []
-            array.push(json.data)
-            setContent(array)
+        try {
+            if (idAnnouncement) {
+                const url = `/announcements/${idAnnouncement}`
+                const json = await api.get(url)
+                const array = []
+                array.push(json.data)
+                setContent(array)
+            }
+        } catch (error) {
+            handleError(router, error)
         }
     }
 

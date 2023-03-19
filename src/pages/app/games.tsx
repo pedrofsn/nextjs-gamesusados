@@ -7,6 +7,7 @@ import RegisterGame from "../../components/RegisterGame/RegisterGame"
 import { parseCookies } from "nookies"
 import { UserType } from "../../data/context/UserSession.jsx"
 import { useRouter } from 'next/router'
+import { handleError } from "../../services/ErrorRedirect"
 
 export default function games(ctx?: any) {
     const [games, setGames] = useState(null)
@@ -14,14 +15,18 @@ export default function games(ctx?: any) {
     const router = useRouter()
 
     async function call(text = "") {
-        const json = await api({
-            method: 'get',
-            url: '/games',
-            params: {
-                'title': text
-            }
-        })
-        setGames(json.data)
+        try {
+            const json = await api({
+                method: 'get',
+                url: '/games',
+                params: {
+                    'title': text
+                }
+            })
+            setGames(json.data)
+        } catch (error) {
+            handleError(router, error)
+        }
     }
 
     function generateList() {

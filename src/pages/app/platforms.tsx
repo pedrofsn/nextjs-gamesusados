@@ -5,18 +5,21 @@ import Searchbox from "../../components/Toolbar";
 import RegisterPlatform from "../../components/RegisterPlatform";
 import { parseCookies } from "nookies"
 import { UserType } from "../../data/context/UserSession.jsx"
+import { handleError } from "../../services/ErrorRedirect";
+import { useRouter } from "next/router";
 
 export default function platforms() {
+    const router = useRouter()
     const [content, setContent] = useState(null)
     const [userType, setUserType] = useState<UserType>(null)
 
-    function onRegistered(text) {
-        call()
-    }
-
     async function call() {
-        const json = await api.get('/platforms')
-        setContent(json.data)
+        try {
+            const json = await api.get('/platforms')
+            setContent(json.data)
+        } catch (error) {
+            handleError(router, error)
+        }
     }
 
     useEffect(() => {
@@ -49,7 +52,7 @@ export default function platforms() {
     const uiManager = <Container css={{ width: '100%' }}>
         <Row css={{ width: '100%' }}>
             <Col css={{ width: '25%' }}>
-                <RegisterPlatform onRegistered={onRegistered} />
+                <RegisterPlatform onRegistered={call} />
             </Col>
             <Col css={{ width: '75%' }}>
                 {uiNotManager}

@@ -5,14 +5,21 @@ import Searchbox from "../../components/Toolbar";
 import { ItemType } from "../../data/model/ItemType";
 import { ReportData } from "../../data/model/ReportData";
 import ReportedItem from "../../components/ReportedItem";
+import { handleError } from "../../services/ErrorRedirect";
+import { useRouter } from "next/router";
 
 export default function platforms() {
     const [content, setContent] = useState(null)
     const [reportData, setReportData] = useState(null)
+    const router = useRouter()
 
     async function call() {
-        const json = await api.get('/report')
-        setContent(json.data)
+        try {
+            const json = await api.get('/report')
+            setContent(json.data)
+        } catch (error) {
+            handleError(router, error)
+        }
     }
 
     useEffect(() => { call() }, [])

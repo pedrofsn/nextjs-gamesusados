@@ -14,7 +14,7 @@ export default function RegisterPlatform(props) {
 
             if (content.id != null && content.message == null) {
                 if (props.onRegistered != null) {
-                    props.onRegistered("Plataforma cadastrada com sucesso!")
+                    props.onRegistered()
                     setPlatform('')
                 }
             }

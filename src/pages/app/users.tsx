@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
 import Searchbox from "../../components/Toolbar"
 import { Col, Row, Container, Table } from "@nextui-org/react"
-import { api } from '../../services/api'
 import RegisterUser from "../../components/RegisterUser"
-import { parseCookies } from "nookies"
 import { UserType } from "../../data/context/UserSession.jsx"
+import { handleError } from "../../services/ErrorRedirect"
+import { api } from '../../services/api'
+import { parseCookies } from "nookies"
 import { useRouter } from 'next/router'
 
 export default function users() {
@@ -16,11 +17,8 @@ export default function users() {
         try {
             const json = await api.get('/users')
             setContent(json.data)
-        } catch (err) {
-            const content = err.response.data
-            if (403 == content.status) {
-                router.push('login')
-            }
+        } catch (error) {
+            handleError(router, error)
         }
     }
 
