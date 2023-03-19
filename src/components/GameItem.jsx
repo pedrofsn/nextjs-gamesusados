@@ -26,5 +26,5 @@ export default function GameItem(props) {
         </Row>
       </Card.Footer>
     </Card>
-  )
+  );
 }

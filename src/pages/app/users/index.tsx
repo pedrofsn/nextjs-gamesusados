@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
-import Searchbox from "../../components/Toolbar"
+import Searchbox from "../../../components/Toolbar"
 import { Col, Row, Container, Table } from "@nextui-org/react"
-import RegisterUser from "../../components/RegisterUser"
-import { UserType } from "../../data/context/UserSession.jsx"
-import { handleError } from "../../services/ErrorRedirect"
-import { api } from '../../services/api'
+import RegisterUser from "../../../components/RegisterUser"
+import { UserType } from "../../../data/context/UserSession.jsx"
+import { handleError } from "../../../services/ErrorRedirect"
+import { api } from '../../../services/api'
 import { parseCookies } from "nookies"
 import { useRouter } from 'next/router'
 

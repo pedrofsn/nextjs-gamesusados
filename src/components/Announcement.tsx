@@ -58,5 +58,5 @@ export default function Announcement(props) {
         </Row>
       </Card.Footer>
     </Card>
-  )
+  );
 }
