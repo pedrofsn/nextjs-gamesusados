@@ -28,10 +28,6 @@ export default function users() {
         call()
     }, [userType])
 
-    function onUserSaved() {
-        call()
-    }
-
     function getTable() {
         return content?.map((element) => {
             return (
@@ -62,7 +58,7 @@ export default function users() {
     const uiAdmin = <Container css={{ width: '100%' }}>
         <Row css={{ width: '75%' }}>
             <Col css={{ width: '25%' }}>
-                <RegisterUser onRegistered={onUserSaved} />
+                <RegisterUser onRegistered={call} />
             </Col>
             <Col css={{ width: '75%' }}>
                 {uiManager}

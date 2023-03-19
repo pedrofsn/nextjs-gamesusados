@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
-import { Table, Container, Row, Col } from "@nextui-org/react";
+import { Table, Container, Row, Col } from "@nextui-org/react"
 import { api } from '../../services/api'
-import Searchbox from "../../components/Toolbar";
-import RegisterPlatform from "../../components/RegisterPlatform";
+import Searchbox from "../../components/Toolbar"
+import RegisterPlatform from "../../components/RegisterPlatform"
 import { parseCookies } from "nookies"
 import { UserType } from "../../data/context/UserSession.jsx"
-import { handleError } from "../../services/ErrorRedirect";
-import { useRouter } from "next/router";
+import { handleError } from "../../services/ErrorRedirect"
+import { useRouter } from "next/router"
 
 export default function platforms() {
     const router = useRouter()

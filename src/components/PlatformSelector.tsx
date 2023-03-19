@@ -1,10 +1,10 @@
-import { Dropdown } from "@nextui-org/react";
+import { Dropdown } from "@nextui-org/react"
 import React, { useState, useEffect } from "react"
-import { api } from "../services/api";
+import { api } from "../services/api"
 
 export default function PlatformSelector(props) {
-    const [menuItems, setMenuItems] = useState([]);
-    const [selected, setSelected] = React.useState(new Set());
+    const [menuItems, setMenuItems] = useState([])
+    const [selected, setSelected] = React.useState(new Set())
 
     async function call() {
         const json = await api.get('/platforms')

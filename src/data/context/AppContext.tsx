@@ -21,7 +21,7 @@ export function AppProvider(props, ctx?: any) {
         const maxAge = 60 * 60 * 1 // 1 hour
         setCookie(undefined, 'gamesusados.usertype', usertype, { maxAge: maxAge })
         setCookie(undefined, 'gamesusados.token', token, { maxAge: maxAge, })
-        api.defaults.headers['Authorization'] = `Bearer ${token}`;
+        api.defaults.headers['Authorization'] = `Bearer ${token}`
     }
 
     function loadSession(): boolean {
@@ -44,7 +44,7 @@ export function AppProvider(props, ctx?: any) {
 
     }
 
-    useEffect(() => { loadSession() });
+    useEffect(() => { loadSession() })
 
     return (
         <AppContext.Provider value={{

@@ -1,11 +1,11 @@
-import { Card, Grid, Row, Text, Switch, Container, Col, Spacer } from "@nextui-org/react";
+import { Card, Grid, Row, Text, Switch, Container, Col, Spacer } from "@nextui-org/react"
 import React, { useEffect, useState } from "react"
 import Owner from './Owner.jsx'
 import { api } from '../services/api'
 
 export default function Announcement(props) {
   const { game, owner, announcement } = props
-  const [isEnabled, setEnabled] = useState(announcement.enabled);
+  const [isEnabled, setEnabled] = useState(announcement.enabled)
 
   async function call(id, isEnabled) {
     const url = `/announcements/${id}/toggle/${isEnabled}`
@@ -58,5 +58,5 @@ export default function Announcement(props) {
         </Row>
       </Card.Footer>
     </Card>
-  );
+  )
 }

@@ -1,10 +1,10 @@
-import { Button, Input, Card } from "@nextui-org/react";
+import { Button, Input, Card } from "@nextui-org/react"
 import React, { useState } from "react"
-import { api } from "../services/api";
+import { api } from "../services/api"
 
 export default function RegisterPlatform(props) {
-    const [platform, setPlatform] = useState('');
-    const [error, setError] = useState('default');
+    const [platform, setPlatform] = useState('')
+    const [error, setError] = useState('default')
 
     async function call(platform) {
         const url = `/platforms/register/${platform}`

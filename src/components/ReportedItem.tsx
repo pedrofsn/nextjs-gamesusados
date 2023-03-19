@@ -59,11 +59,11 @@ export default function ReportedItem(props) {
             switch (reportData.type) {
                 case ItemType.Announcement: {
                     loadAnnouncement(reportData)
-                    break;
+                    break
                 }
                 case ItemType.Game: {
                     loadGame(reportData)
-                    break;
+                    break
                 }
             }
         }

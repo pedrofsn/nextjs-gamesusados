@@ -11,7 +11,7 @@ export default function games() {
   const [isErrorInvisible, setErrorAsInvisible] = React.useState(true);
   const [error, setError] = useState('')
   const [isLoading, setLoading] = React.useState(false);
-  const { loadSession, saveSession, logout } = useAppData()
+  const { loadSession, saveSession } = useAppData()
   const router = useRouter()
 
   function updateData(updateFunction, e) {
@@ -146,5 +146,3 @@ export default function games() {
     </Card>
   </Container>
 }
-// TODO [PENDENTE] Lista de usuários cadastrados
-// TODO [PENDENTE] Cadastro de usuário do tipo gerente (por parte do admin)

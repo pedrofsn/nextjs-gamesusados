@@ -48,7 +48,7 @@ export default function RegisterGame(props) {
 
         const json = await api.post(url, body, {
             headers: { "Content-Type": "multipart/form-data" }
-        });
+        })
         const result = json.data
         if (result != null) {
             return result

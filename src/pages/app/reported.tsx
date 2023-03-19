@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
-import { Table, Button } from "@nextui-org/react";
+import { Table, Button } from "@nextui-org/react"
 import { api } from '../../services/api'
-import Searchbox from "../../components/Toolbar";
-import { ItemType } from "../../data/model/ItemType";
-import { ReportData } from "../../data/model/ReportData";
-import ReportedItem from "../../components/ReportedItem";
-import { handleError } from "../../services/ErrorRedirect";
-import { useRouter } from "next/router";
+import Searchbox from "../../components/Toolbar"
+import { ItemType } from "../../data/model/ItemType"
+import { ReportData } from "../../data/model/ReportData"
+import ReportedItem from "../../components/ReportedItem"
+import { handleError } from "../../services/ErrorRedirect"
+import { useRouter } from "next/router"
 
 export default function platforms() {
     const [content, setContent] = useState(null)
@@ -73,4 +73,3 @@ export default function platforms() {
         <ReportedItem reportData={reportData} />
     </>
 }
-

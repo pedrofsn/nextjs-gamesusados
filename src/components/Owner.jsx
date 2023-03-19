@@ -1,4 +1,4 @@
-import { User, Spacer } from "@nextui-org/react";
+import { User, Spacer } from "@nextui-org/react"
 
 export default function Owner(props) {
   const { owner } = props
