@@ -1,5 +1,5 @@
 import axios from "axios";
-import { parseCookies } from "nookies";
+import { parseCookies } from "nookies"
 
 export function getAPIClient(ctx?: any) {
     const { 'gamesusados.token': token } = parseCookies(ctx)
@@ -15,13 +15,16 @@ export function getAPIClient(ctx?: any) {
 
     api.interceptors.response.use((response) => response, (error) => {
         if (error != null) {
-            // Objeto de erro
+            // TODO Objeto de erro
             // error.response.data
             // {"timestamp":"2023-03-06T09:06:54.184+00:00","status":403,"error":"Forbidden","message":"Access Denied","path":"/report"}
 
-            if (403 == error.response.status) {
-
-            }
+            // console.log(error.response.status)
+            // if (404 == error.response.status) {
+            //     const router = useRouter()
+            //     router.push('/login')
+            //     return
+            // }
         }
         // whatever you want to do with the error
         throw error;
