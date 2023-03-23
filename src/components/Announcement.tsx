@@ -6,10 +6,16 @@ import { api } from '../services/api'
 export default function Announcement(props) {
   const { game, owner, announcement } = props
   const [isEnabled, setEnabled] = useState(announcement.enabled)
+  const [textStatus, setTextStatus] = useState(getTextStatus(announcement.enabled))
+
+  function getTextStatus(isEnabled: Boolean): String {
+    return isEnabled ? "Anúncio ativado" : "Anúncio desativado"
+  }
 
   async function call(id, isEnabled) {
     const url = `/announcements/${id}/toggle/${isEnabled}`
     const json = await api.post(url)
+    setTextStatus(getTextStatus(isEnabled))
   }
 
   function updateAnnouncementStatus(enabled) {
@@ -43,7 +49,7 @@ export default function Announcement(props) {
               />
             </Col>
             <Col css={{ width: '50%' }}>
-              <Text>{announcement.enabled ? "Anúncio ativado" : "Anúncio desativado"}</Text>
+              <Text>{textStatus}</Text>
             </Col>
           </Row>
         </Container>
