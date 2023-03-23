@@ -4,8 +4,9 @@ export default function Owner(props) {
   const { owner } = props
   return <>
     <User
+      src={owner.image != null ? owner.image : null}
       name={owner.name}
-      text={owner.name[0]}
+      text={owner.image != null ? null : owner.name[0]}
       size="xl"
       color="default">
       <User.Link href={`tel:${owner.phone}`}>{owner.phone}</User.Link>
