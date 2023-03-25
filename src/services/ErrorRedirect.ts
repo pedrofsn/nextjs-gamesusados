@@ -7,8 +7,8 @@ export function handleError(router: NextRouter, error?: AxiosError) {
         // error.response.data
         // {"timestamp":"2023-03-06T09:06:54.184+00:00","status":403,"error":"Forbidden","message":"Access Denied","path":"/report"}
 
-        const statusCode = error.response.status
-        if ([403, 404].includes(statusCode)) {
+        const statusCode = error?.response?.status
+        if (statusCode != null && [403, 404].includes(statusCode)) {
             router.push('/app/login')
         }
     }
