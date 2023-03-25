@@ -30,6 +30,7 @@ export default function ReportedItem(props) {
                         id: element.id,
                         price: element.price,
                         enabled: element.enabled,
+                        priceMasked: element.priceMasked
                     }}
                 />
             </Grid.Container>
