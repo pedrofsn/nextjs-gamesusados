@@ -1,7 +1,6 @@
-import { Modal, Grid } from "@nextui-org/react"
+import { Modal, Grid, Button } from "@nextui-org/react"
 import { useEffect, useState } from "react"
 import { ItemType } from "../data/model/ItemType"
-import { ReportData } from "../data/model/ReportData"
 import { api } from "../services/api"
 import Announcement from "./Announcement"
 import GameItem from "./GameItem"
@@ -13,9 +12,10 @@ export default function ReportedItem(props) {
 
     const onCloseModal = () => { setVisible(false) }
 
-    async function loadAnnouncement(reportData: ReportData) {
+    async function loadAnnouncement(reportData) {
         if (reportData) {
-            const url = `/announcements/${reportData.id}`
+            console.log(reportData.announcement)
+            const url = `/announcements/${reportData.announcement.id}`
             const json = await api.get(url)
             const element = json.data
 
@@ -38,9 +38,9 @@ export default function ReportedItem(props) {
         }
     }
 
-    async function loadGame(reportData: ReportData) {
+    async function loadGame(reportData) {
         if (reportData) {
-            const url = `/games/${reportData.id}`
+            const url = `/games/${reportData.game.id}`
             const json = await api.get(url)
             const element = json.data
 
@@ -54,9 +54,9 @@ export default function ReportedItem(props) {
         }
     }
 
-    function openDetail(reportData: ReportData) {
+    function openDetail() {
         if (reportData) {
-            switch (reportData.type) {
+            switch (getType()) {
                 case ItemType.Announcement: {
                     loadAnnouncement(reportData)
                     break
@@ -69,18 +69,30 @@ export default function ReportedItem(props) {
         }
     }
 
-    useEffect(() => { openDetail(reportData) }, [reportData])
+    function getType(): ItemType {
+        const { announcement, game } = reportData
+        if (announcement != null) {
+            return ItemType.Announcement
+        } if (game != null) {
+            return ItemType.Game
+        } else {
+            return ItemType.Unknown
+        }
+    }
 
-    return <Modal
-        closeButton
-        aria-labelledby="modal-title"
-        open={visible}
-        onClose={onCloseModal}>
-        <Modal.Header>
-            <h2>{reportData?.type}</h2>
-        </Modal.Header>
-        <Modal.Body>
-            {content}
-        </Modal.Body>
-    </Modal>
+    return <>
+        <Button onClick={openDetail}>Ver detalhe</Button>
+        <Modal
+            closeButton
+            aria-labelledby="modal-title"
+            open={visible}
+            onClose={onCloseModal}>
+            <Modal.Header>
+                <h2>{reportData?.type}</h2>
+            </Modal.Header>
+            <Modal.Body>
+                {content}
+            </Modal.Body>
+        </Modal>
+    </>
 }

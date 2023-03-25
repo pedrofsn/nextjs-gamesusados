@@ -3,7 +3,6 @@ import { Table, Button } from "@nextui-org/react"
 import { api } from '../../services/api'
 import Searchbox from "../../components/Toolbar"
 import { ItemType } from "../../data/model/ItemType"
-import { ReportData } from "../../data/model/ReportData"
 import ReportedItem from "../../components/ReportedItem"
 import { handleError } from "../../services/ErrorRedirect"
 import { useRouter } from "next/router"
@@ -41,8 +40,6 @@ export default function platforms() {
                 }
             }
 
-            const data = new ReportData(element.id, getType())
-
             return (
                 <Table.Row key={element.id}>
                     <Table.Cell>{metadata.createdBy}</Table.Cell>
@@ -50,9 +47,7 @@ export default function platforms() {
                     <Table.Cell>{metadata.textCreatedAt}</Table.Cell>
                     <Table.Cell>{element.description}</Table.Cell>
                     <Table.Cell>{getType()}</Table.Cell>
-                    <Table.Cell>
-                        <Button onPress={() => setReportData(data)}>Ver detalhe</Button>
-                    </Table.Cell>
+                    <Table.Cell><ReportedItem reportData={element} /></Table.Cell>
                 </Table.Row>
             )
         })
@@ -75,6 +70,5 @@ export default function platforms() {
                 {getTable()}
             </Table.Body>
         </Table>
-        <ReportedItem reportData={reportData} />
     </>
 }
