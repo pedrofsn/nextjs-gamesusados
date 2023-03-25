@@ -14,7 +14,6 @@ export default function ReportedItem(props) {
 
     async function loadAnnouncement(reportData) {
         if (reportData) {
-            console.log(reportData.announcement)
             const url = `/announcements/${reportData.announcement.id}`
             const json = await api.get(url)
             const element = json.data
