@@ -37,6 +37,8 @@ export default function users() {
                     <Table.Cell>{element.email}</Table.Cell>
                     <Table.Cell>{element.phone}</Table.Cell>
                     <Table.Cell>{element.type}</Table.Cell>
+                    <Table.Cell>{element.metadata.createdBy}</Table.Cell>
+                    <Table.Cell>{element.metadata.textCreatedAt}</Table.Cell>
                 </Table.Row>
             )
         })
@@ -49,6 +51,8 @@ export default function users() {
             <Table.Column>E-mail</Table.Column>
             <Table.Column>Telefone</Table.Column>
             <Table.Column>Tipo</Table.Column>
+            <Table.Column>Criado Por</Table.Column>
+            <Table.Column>Criado Em</Table.Column>
         </Table.Header>
         <Table.Body>
             {getTable()}
@@ -56,7 +60,7 @@ export default function users() {
     </Table>
 
     const uiAdmin = <Container css={{ width: '100%' }}>
-        <Row css={{ width: '75%' }}>
+        <Row css={{ width: '100%' }}>
             <Col css={{ width: '25%' }}>
                 <RegisterUser onRegistered={call} />
             </Col>
