@@ -1,4 +1,4 @@
-import { Card, Grid, Row, Text, Switch, Container, Col, Spacer } from "@nextui-org/react"
+import { Card, Row, Text, Switch, Container, Col, Spacer } from "@nextui-org/react"
 import React, { useEffect, useState } from "react"
 import Owner from './Owner.jsx'
 import { api } from '../services/api'
@@ -56,12 +56,17 @@ export default function Announcement(props) {
       </Card.Body>
       <Card.Divider />
       <Card.Footer css={{ justifyItems: "flex-start" }}>
-        <Row wrap="wrap" justify="space-between" align="center">
-          <Text b>{game.title}</Text>
-          <Text css={{ color: "$accents7", fontWeight: "$semibold", fontSize: "$sm" }}>
-            {game.platform}
-          </Text>
-        </Row>
+        <Col>
+          <Row wrap="wrap" justify="space-between" align="center">
+            <Text>{game.title}</Text>
+            <Text css={{ color: "$accents7", fontWeight: "$semibold", fontSize: "$sm" }}>
+              {game.platform}
+            </Text>
+          </Row>
+          <Row>
+            <Text b size={20}>{announcement.priceMasked}</Text>
+          </Row>
+        </Col>
       </Card.Footer>
     </Card>
   );

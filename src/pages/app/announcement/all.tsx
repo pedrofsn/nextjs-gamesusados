@@ -31,6 +31,7 @@ export default function gamesPending(ctx) {
                         id: element.id,
                         price: element.price,
                         enabled: element.enabled,
+                        priceMasked: element.priceMasked
                     }}
                 />
             </Grid>
