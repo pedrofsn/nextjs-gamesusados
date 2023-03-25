@@ -37,8 +37,8 @@ export default function Toolbar(props, ctx?: any) {
         </Navbar.Brand>
         <Navbar.Content hideIn="xs">
             <Navbar.Link href="/app/games">Games</Navbar.Link>
-            {userType == 'MANAGER' ? <Navbar.Link href="/app/announcement/all">Anúncios</Navbar.Link> : <></>}
             <Navbar.Link href="/app/platforms">Plataformas</Navbar.Link>
+            {userType == 'MANAGER' ? <Navbar.Link href="/app/announcement/all">Anúncios</Navbar.Link> : <></>}
             {userType == 'MANAGER' ? <Navbar.Link href="/app/reported">Denúncias</Navbar.Link> : <></>}
             {userType == 'ADMIN' || userType == 'MANAGER' ? <Navbar.Link href="/app/users">Usuários</Navbar.Link> : <></>}
             {shouldAddSearchBar()}
