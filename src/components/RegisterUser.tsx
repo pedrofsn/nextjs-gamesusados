@@ -20,6 +20,13 @@ export default function RegisterPlatform(props) {
         setErrorPassword('default')
     }
 
+    function resetForm() {
+        setFullname('')
+        setPhone('')
+        setEmail('')
+        setPassword('')
+    }
+
     async function register() {
         const url = `/users/register/manager`
         try {
@@ -35,6 +42,7 @@ export default function RegisterPlatform(props) {
                 if (props.onRegistered != null) {
                     props.onRegistered("Usuário cadastrado com sucesso!")
                     resetInputStatus()
+                    resetForm()
                 }
             }
         } catch (err) {
@@ -125,7 +133,7 @@ export default function RegisterPlatform(props) {
             <Card.Footer>
                 <Button auto flat
                     color="default"
-                    onPress={onPress}>
+                    onPress={resetForm}>
                     Cadastrar
                 </Button>
             </Card.Footer>
