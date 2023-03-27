@@ -79,8 +79,8 @@ export default function games() {
         saveSession(userSession)
         router.push('/app/games')
       } catch (err) {
-        const json = err.response.data
-        setError(json.message)
+        const json = err?.response?.data
+        setError(json != null ? json?.message : "O servidor não respondeu")
         setErrorAsInvisible(false)
         setLoading(false)
       }
