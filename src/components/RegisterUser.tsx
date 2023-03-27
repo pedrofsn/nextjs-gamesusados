@@ -133,7 +133,7 @@ export default function RegisterPlatform(props) {
             <Card.Footer>
                 <Button auto flat
                     color="default"
-                    onPress={resetForm}>
+                    onPress={onPress}>
                     Cadastrar
                 </Button>
             </Card.Footer>
